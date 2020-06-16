@@ -1,0 +1,15 @@
+{
+    "type": "postgres",
+    "superuser": "pgadmin",
+    "username": "postgres",
+    "password": "pos",
+    "host": "localhost",
+    "port": 5432,
+    "database": "dbtiendaonline",
+    "entities": ["src/modules/**/*.entity{.ts,.js}"],
+    "migrations": ["src/database/migration/*{.ts,.js}"],
+    "synchronize": true,
+    "cli": {
+        "migrationsDir": "src/database/migration"
+    }
+}
