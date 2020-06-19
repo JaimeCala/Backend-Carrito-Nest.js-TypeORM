@@ -1,0 +1,26 @@
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, UpdateDateColumn, CreateDateColumn, OneToMany, ManyToOne } from "typeorm";
+import { Producto } from "../producto/producto.entity";
+
+@Entity('imgproducto')
+export class ImgProducto extends BaseEntity{
+
+    @PrimaryGeneratedColumn('increment')
+    idimgproducto:number;
+
+    @Column({type:'varchar', length:50, nullable:false})
+    nombreimgprodu:string;
+
+    @Column({type:'varchar', nullable:false})
+    linkimgprodu:string;
+
+    @Column({type:'varchar', length:100})
+    descripcion:string;
+    @CreateDateColumn({type: 'timestamp',  name:'created_at'})
+    createdAt: Date;
+
+    @UpdateDateColumn({type: 'timestamp',  name:'updated_at'})
+    updatedAt: Date;
+
+    @ManyToOne(type => Producto, producto => producto.imgproductos)
+    producto: Producto;
+}
