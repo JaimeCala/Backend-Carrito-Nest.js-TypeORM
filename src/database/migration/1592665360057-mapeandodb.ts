@@ -1,7 +1,7 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
-export class mapeandoDb1592588182132 implements MigrationInterface {
-    name = 'mapeandoDb1592588182132'
+export class mapeandodb1592665360057 implements MigrationInterface {
+    name = 'mapeandodb1592665360057'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`CREATE TABLE "Modulo" ("idmodulo" SERIAL NOT NULL, "nombremodulo" character varying(25) NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_83b9e1e1e781a6ec0baaf2be979" PRIMARY KEY ("idmodulo"))`);
