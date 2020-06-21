@@ -1,10 +1,10 @@
-import {BaseEntity, Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany, OneToOne} from 'typeorm';
-import { UserOperacion } from '../user-operacion/user-operacion.entity';
+import {BaseEntity, Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany, OneToOne, ManyToOne} from 'typeorm';
 import { Login } from '../login/login.entity';
 import { Admin } from '../admin/admin.entity';
 import { Vendedor } from '../vendedor/vendedor.entity';
 import { Cliente } from '../cliente/cliente.entity';
 import { Repartidor } from '../repartidor/repartidor.entity';
+import { Rol } from '../rol/rol.entity';
 
 @Entity('user')
 export class User extends BaseEntity{
@@ -51,8 +51,8 @@ export class User extends BaseEntity{
     @UpdateDateColumn({type: 'timestamp',  name:'updated_at'})
     updatedAt: Date;
 
-    @OneToMany(type => UserOperacion, useroperacion => useroperacion.user)
-    useroperacions:UserOperacion[];
+    @ManyToOne(type => Rol, rol => rol.user)
+    rol:Rol;
 
     @OneToMany(type => Login, login => login.user)
     logins: Login[];

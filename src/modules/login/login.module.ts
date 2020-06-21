@@ -1,8 +1,12 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { LoginRepositoty } from './login.repository';
+import { LoginRepository } from './login.repository';
+import { LoginService } from 'src/service/login/login.service';
+import { LoginController } from 'src/controller/login/login.controller';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([LoginRepositoty])],
+    imports: [TypeOrmModule.forFeature([LoginRepository])],
+    providers: [LoginService],
+    controllers: [LoginController]
 })
 export class LoginModule {}

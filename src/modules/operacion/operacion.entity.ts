@@ -1,6 +1,6 @@
 import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany } from "typeorm";
 import { Modulo } from "../modulo/modulo.entity";
-import { UserOperacion } from "../user-operacion/user-operacion.entity";
+import { RolOperacion } from "../rol-operacion/rol-operacion.entity";
 
 @Entity('operacion')
 export class Operacion extends BaseEntity{
@@ -20,7 +20,7 @@ export class Operacion extends BaseEntity{
     @ManyToOne(type => Modulo, modulo => modulo.operacions)
     modulos: Modulo;
 
-    @OneToMany(type => UserOperacion, useroperacion => useroperacion.operacions  )
-    useroperacions: UserOperacion[];
+    @OneToMany(type => RolOperacion, roloperacion => roloperacion.operacions  )
+    roloperacions: RolOperacion[];
 
 }

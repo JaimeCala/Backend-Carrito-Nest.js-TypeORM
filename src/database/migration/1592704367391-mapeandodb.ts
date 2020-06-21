@@ -1,12 +1,9 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
-export class mapeandodb1592665360057 implements MigrationInterface {
-    name = 'mapeandodb1592665360057'
+export class mapeandodb1592704367391 implements MigrationInterface {
+    name = 'mapeandodb1592704367391'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`CREATE TABLE "Modulo" ("idmodulo" SERIAL NOT NULL, "nombremodulo" character varying(25) NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_83b9e1e1e781a6ec0baaf2be979" PRIMARY KEY ("idmodulo"))`);
-        await queryRunner.query(`CREATE TABLE "operacion" ("idoperacion" SERIAL NOT NULL, "nombreoperacion" character varying(25) NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "modulosIdmodulo" integer, CONSTRAINT "PK_b0d92e11ff9835f5e98d2a8fbbb" PRIMARY KEY ("idoperacion"))`);
-        await queryRunner.query(`CREATE TABLE "useroperacion" ("iduseroperacion" SERIAL NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "operacionsIdoperacion" integer, "userIdusuario" integer, CONSTRAINT "PK_9963a6839447d3e98ea5802327d" PRIMARY KEY ("iduseroperacion"))`);
         await queryRunner.query(`CREATE TABLE "login" ("idlogin" SERIAL NOT NULL, "username" character varying NOT NULL, "password" character varying NOT NULL, "fecha" date NOT NULL, "hora" TIME NOT NULL, "created_at" TIMESTAMP NOT NULL, "updated_at" TIMESTAMP NOT NULL, "userIdusuario" integer, CONSTRAINT "UQ_c9db456a9dca0e6e45d16669e9a" UNIQUE ("username"), CONSTRAINT "PK_50ba318012b060e609beead047a" PRIMARY KEY ("idlogin"))`);
         await queryRunner.query(`CREATE TABLE "unidadproducto" ("idunidadproducto" SERIAL NOT NULL, "valor" character varying(20) NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "productoIdproducto" integer, CONSTRAINT "PK_ee8891a0ffdfa74511d01919638" PRIMARY KEY ("idunidadproducto"))`);
         await queryRunner.query(`CREATE TABLE "imgproducto" ("idimgproducto" SERIAL NOT NULL, "nombreimgprodu" character varying(50) NOT NULL, "linkimgprodu" character varying NOT NULL, "descripcion" character varying(100) NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "productoIdproducto" integer, CONSTRAINT "PK_057d7146a0707a9f9d6a78d923f" PRIMARY KEY ("idimgproducto"))`);
@@ -19,11 +16,12 @@ export class mapeandodb1592665360057 implements MigrationInterface {
         await queryRunner.query(`CREATE TABLE "pedido" ("idpedido" SERIAL NOT NULL, "latitud" character varying(100) NOT NULL, "longitud" character varying(100) NOT NULL, "fecha" date NOT NULL, "hora" TIME NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "clienteIdcliente" integer, "repartidorIdrepartidor" integer, CONSTRAINT "PK_70726b8cb4f3ce27a06bd47b93c" PRIMARY KEY ("idpedido"))`);
         await queryRunner.query(`CREATE TABLE "venta" ("idventa" SERIAL NOT NULL, "estadopedido" character varying NOT NULL, "total" double precision NOT NULL, "cantidad" integer NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "vendedorIdvendedor" integer, "pedidoIdpedido" integer, CONSTRAINT "PK_34a4a8091275c8bb662095f3e46" PRIMARY KEY ("idventa"))`);
         await queryRunner.query(`CREATE TABLE "vendedor" ("idvendedor" SERIAL NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "userIdusuario" integer, CONSTRAINT "REL_c8bf0c7780bd244d3fb7687f7e" UNIQUE ("userIdusuario"), CONSTRAINT "PK_53a1e999e2b539fd05539a9172d" PRIMARY KEY ("idvendedor"))`);
-        await queryRunner.query(`CREATE TABLE "user" ("idusuario" SERIAL NOT NULL, "ci" character varying(10) NOT NULL, "expedido" character varying(5) NOT NULL, "nombre" character varying(25) NOT NULL, "paterno" character varying(25) NOT NULL, "materno" character varying(25) NOT NULL, "email" character varying NOT NULL, "celular" character varying(10) NOT NULL, "direccion" character varying(10) NOT NULL, "sexo" character varying(10) NOT NULL, "ciudad" character varying(50) NOT NULL, "estado" character varying(8) NOT NULL DEFAULT 'ACTIVE', "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "UQ_098e105d84a153cfa5d8306df98" UNIQUE ("ci"), CONSTRAINT "UQ_e12875dfb3b1d92d7d7c5377e22" UNIQUE ("email"), CONSTRAINT "PK_b2ab85efc3a7c62fa29d76c009a" PRIMARY KEY ("idusuario"))`);
+        await queryRunner.query(`CREATE TABLE "Modulo" ("idmodulo" SERIAL NOT NULL, "nombremodulo" character varying(25) NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_83b9e1e1e781a6ec0baaf2be979" PRIMARY KEY ("idmodulo"))`);
+        await queryRunner.query(`CREATE TABLE "operacion" ("idoperacion" SERIAL NOT NULL, "nombreoperacion" character varying(25) NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "modulosIdmodulo" integer, CONSTRAINT "PK_b0d92e11ff9835f5e98d2a8fbbb" PRIMARY KEY ("idoperacion"))`);
+        await queryRunner.query(`CREATE TABLE "roloperacion" ("idroloperacion" SERIAL NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "operacionsIdoperacion" integer, "rolIdrol" integer, CONSTRAINT "PK_94a3b5ff4a3649243f2b1985130" PRIMARY KEY ("idroloperacion"))`);
+        await queryRunner.query(`CREATE TABLE "rol" ("idrol" SERIAL NOT NULL, "nombre" character varying(25) NOT NULL, "fecha" date NOT NULL, "hora" TIME NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_654858cf0914fbd65b6f01e22a2" PRIMARY KEY ("idrol"))`);
+        await queryRunner.query(`CREATE TABLE "user" ("idusuario" SERIAL NOT NULL, "ci" character varying(10) NOT NULL, "expedido" character varying(5) NOT NULL, "nombre" character varying(25) NOT NULL, "paterno" character varying(25) NOT NULL, "materno" character varying(25) NOT NULL, "email" character varying NOT NULL, "celular" character varying(10) NOT NULL, "direccion" character varying(10) NOT NULL, "sexo" character varying(10) NOT NULL, "ciudad" character varying(50) NOT NULL, "estado" character varying(8) NOT NULL DEFAULT 'ACTIVE', "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "rolIdrol" integer, CONSTRAINT "UQ_098e105d84a153cfa5d8306df98" UNIQUE ("ci"), CONSTRAINT "UQ_e12875dfb3b1d92d7d7c5377e22" UNIQUE ("email"), CONSTRAINT "PK_b2ab85efc3a7c62fa29d76c009a" PRIMARY KEY ("idusuario"))`);
         await queryRunner.query(`CREATE TABLE "admin" ("idadmin" SERIAL NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "userIdusuario" integer, CONSTRAINT "REL_7e2d3097b9681a0f1e5827983f" UNIQUE ("userIdusuario"), CONSTRAINT "PK_6aa1c71c1e17f29974bfbffe7cf" PRIMARY KEY ("idadmin"))`);
-        await queryRunner.query(`ALTER TABLE "operacion" ADD CONSTRAINT "FK_076a263125d1b55dbe49dccb672" FOREIGN KEY ("modulosIdmodulo") REFERENCES "Modulo"("idmodulo") ON DELETE NO ACTION ON UPDATE NO ACTION`);
-        await queryRunner.query(`ALTER TABLE "useroperacion" ADD CONSTRAINT "FK_440782dd20c97292bcd4750b2cc" FOREIGN KEY ("operacionsIdoperacion") REFERENCES "operacion"("idoperacion") ON DELETE NO ACTION ON UPDATE NO ACTION`);
-        await queryRunner.query(`ALTER TABLE "useroperacion" ADD CONSTRAINT "FK_963582e453589c8b40ce9fd07a2" FOREIGN KEY ("userIdusuario") REFERENCES "user"("idusuario") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "login" ADD CONSTRAINT "FK_fe26416e4bfa6ae26ab744857a3" FOREIGN KEY ("userIdusuario") REFERENCES "user"("idusuario") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "unidadproducto" ADD CONSTRAINT "FK_9cc31fd287491c86a2b987d122c" FOREIGN KEY ("productoIdproducto") REFERENCES "producto"("idproducto") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "imgproducto" ADD CONSTRAINT "FK_7326f1242701a83701345611aa2" FOREIGN KEY ("productoIdproducto") REFERENCES "producto"("idproducto") ON DELETE NO ACTION ON UPDATE NO ACTION`);
@@ -38,11 +36,19 @@ export class mapeandodb1592665360057 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "venta" ADD CONSTRAINT "FK_04c211c832d271711c09e3d4198" FOREIGN KEY ("vendedorIdvendedor") REFERENCES "vendedor"("idvendedor") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "venta" ADD CONSTRAINT "FK_115ce5f184fa32c3a00c0a8f61a" FOREIGN KEY ("pedidoIdpedido") REFERENCES "pedido"("idpedido") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "vendedor" ADD CONSTRAINT "FK_c8bf0c7780bd244d3fb7687f7ed" FOREIGN KEY ("userIdusuario") REFERENCES "user"("idusuario") ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "operacion" ADD CONSTRAINT "FK_076a263125d1b55dbe49dccb672" FOREIGN KEY ("modulosIdmodulo") REFERENCES "Modulo"("idmodulo") ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "roloperacion" ADD CONSTRAINT "FK_d2847a93a71904a31ae4018271d" FOREIGN KEY ("operacionsIdoperacion") REFERENCES "operacion"("idoperacion") ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "roloperacion" ADD CONSTRAINT "FK_2dbb8e17ba9ad37e73a57c91587" FOREIGN KEY ("rolIdrol") REFERENCES "rol"("idrol") ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "user" ADD CONSTRAINT "FK_3e8227daa3428039b615f1cfcf3" FOREIGN KEY ("rolIdrol") REFERENCES "rol"("idrol") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "admin" ADD CONSTRAINT "FK_7e2d3097b9681a0f1e5827983f6" FOREIGN KEY ("userIdusuario") REFERENCES "user"("idusuario") ON DELETE NO ACTION ON UPDATE NO ACTION`);
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`ALTER TABLE "admin" DROP CONSTRAINT "FK_7e2d3097b9681a0f1e5827983f6"`);
+        await queryRunner.query(`ALTER TABLE "user" DROP CONSTRAINT "FK_3e8227daa3428039b615f1cfcf3"`);
+        await queryRunner.query(`ALTER TABLE "roloperacion" DROP CONSTRAINT "FK_2dbb8e17ba9ad37e73a57c91587"`);
+        await queryRunner.query(`ALTER TABLE "roloperacion" DROP CONSTRAINT "FK_d2847a93a71904a31ae4018271d"`);
+        await queryRunner.query(`ALTER TABLE "operacion" DROP CONSTRAINT "FK_076a263125d1b55dbe49dccb672"`);
         await queryRunner.query(`ALTER TABLE "vendedor" DROP CONSTRAINT "FK_c8bf0c7780bd244d3fb7687f7ed"`);
         await queryRunner.query(`ALTER TABLE "venta" DROP CONSTRAINT "FK_115ce5f184fa32c3a00c0a8f61a"`);
         await queryRunner.query(`ALTER TABLE "venta" DROP CONSTRAINT "FK_04c211c832d271711c09e3d4198"`);
@@ -57,11 +63,12 @@ export class mapeandodb1592665360057 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "imgproducto" DROP CONSTRAINT "FK_7326f1242701a83701345611aa2"`);
         await queryRunner.query(`ALTER TABLE "unidadproducto" DROP CONSTRAINT "FK_9cc31fd287491c86a2b987d122c"`);
         await queryRunner.query(`ALTER TABLE "login" DROP CONSTRAINT "FK_fe26416e4bfa6ae26ab744857a3"`);
-        await queryRunner.query(`ALTER TABLE "useroperacion" DROP CONSTRAINT "FK_963582e453589c8b40ce9fd07a2"`);
-        await queryRunner.query(`ALTER TABLE "useroperacion" DROP CONSTRAINT "FK_440782dd20c97292bcd4750b2cc"`);
-        await queryRunner.query(`ALTER TABLE "operacion" DROP CONSTRAINT "FK_076a263125d1b55dbe49dccb672"`);
         await queryRunner.query(`DROP TABLE "admin"`);
         await queryRunner.query(`DROP TABLE "user"`);
+        await queryRunner.query(`DROP TABLE "rol"`);
+        await queryRunner.query(`DROP TABLE "roloperacion"`);
+        await queryRunner.query(`DROP TABLE "operacion"`);
+        await queryRunner.query(`DROP TABLE "Modulo"`);
         await queryRunner.query(`DROP TABLE "vendedor"`);
         await queryRunner.query(`DROP TABLE "venta"`);
         await queryRunner.query(`DROP TABLE "pedido"`);
@@ -74,9 +81,6 @@ export class mapeandodb1592665360057 implements MigrationInterface {
         await queryRunner.query(`DROP TABLE "imgproducto"`);
         await queryRunner.query(`DROP TABLE "unidadproducto"`);
         await queryRunner.query(`DROP TABLE "login"`);
-        await queryRunner.query(`DROP TABLE "useroperacion"`);
-        await queryRunner.query(`DROP TABLE "operacion"`);
-        await queryRunner.query(`DROP TABLE "Modulo"`);
     }
 
 }
