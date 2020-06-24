@@ -1,4 +1,4 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne } from "typeorm";
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from "typeorm";
 import { Pedido } from "../pedido/pedido.entity";
 import { Producto } from "../producto/producto.entity";
 
@@ -21,9 +21,11 @@ export class PedidoProducto extends BaseEntity{
     updatedAt: Date;    
 
     @ManyToOne(type => Pedido, pedido => pedido.pedidoproductos)
+    @JoinColumn({name:'idpedido'})
     pedido:Pedido;
 
     @ManyToOne(type => Producto, producto => producto.pedidoproductos)
+    @JoinColumn({name:'idproducto'})
     producto: Producto;
 
 }

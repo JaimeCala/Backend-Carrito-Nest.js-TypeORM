@@ -21,6 +21,8 @@ import { UnidadProducModule } from './modules/unidad-produc/unidad-produc.module
 import { RepartidorModule } from './modules/repartidor/repartidor.module';
 import { RolModule } from './modules/rol/rol.module';
 import { RolOperacionModule } from './modules/rol-operacion/rol-operacion.module';
+import { AuthModule } from './modules/auth/auth.module';
+
 
 
 
@@ -45,7 +47,7 @@ import { RolOperacionModule } from './modules/rol-operacion/rol-operacion.module
             UnidadProducModule, 
             RepartidorModule, 
             RolModule, 
-            RolOperacionModule],
+            RolOperacionModule, AuthModule],
   controllers: [],
   providers: [],
 })

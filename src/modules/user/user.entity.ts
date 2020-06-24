@@ -1,12 +1,13 @@
-import {BaseEntity, Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany, OneToOne, ManyToOne} from 'typeorm';
+import {BaseEntity, Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany, OneToOne, ManyToOne, JoinColumn} from 'typeorm';
 import { Login } from '../login/login.entity';
 import { Admin } from '../admin/admin.entity';
 import { Vendedor } from '../vendedor/vendedor.entity';
 import { Cliente } from '../cliente/cliente.entity';
 import { Repartidor } from '../repartidor/repartidor.entity';
 import { Rol } from '../rol/rol.entity';
+import { type } from 'os';
 
-@Entity('user')
+@Entity('users')
 export class User extends BaseEntity{
     
     @PrimaryGeneratedColumn('increment')
@@ -33,7 +34,7 @@ export class User extends BaseEntity{
     @Column({type:'varchar', length:10, nullable:false})
     celular: string;
     
-    @Column({type:'varchar', length:10, nullable:false})
+    @Column({type:'varchar', length:100, nullable:false})
     direccion: string;
 
     @Column({type:'varchar', length:10,nullable:false})
@@ -42,7 +43,7 @@ export class User extends BaseEntity{
     @Column({type:'varchar',length:50,nullable:false})
     ciudad: string;
 
-    @Column({type:'varchar', length:8, default:'ACTIVE' , nullable:false})
+    @Column({type:'varchar', length:8, default:'ACTIVO' , nullable:false})
     estado:string;
 
     @CreateDateColumn({type: 'timestamp',  name:'created_at'})
@@ -51,7 +52,8 @@ export class User extends BaseEntity{
     @UpdateDateColumn({type: 'timestamp',  name:'updated_at'})
     updatedAt: Date;
 
-    @ManyToOne(type => Rol, rol => rol.user)
+    @ManyToOne( type =>Rol, rol => rol.user)
+    @JoinColumn({name:'idrol'}))
     rol:Rol;
 
     @OneToMany(type => Login, login => login.user)

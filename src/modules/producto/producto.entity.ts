@@ -1,4 +1,4 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, Double, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToOne } from "typeorm";
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, Double, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToOne, JoinColumn } from "typeorm";
 import { PedidoProducto } from "../pedido-produ/pedido-produ.entity";
 import { UnidadProducto } from "../unidad-produc/unidad-produc.entity";
 import { ImgProducto } from "../img-producto/img-producto.entity";
@@ -57,6 +57,7 @@ export class Producto extends  BaseEntity{
     imgproductos: ImgProducto[];
 
     @ManyToOne(type => Categoria, categoria => categoria.productos)
+    @JoinColumn({name:'idcategoria'})
     categoria: Categoria;
 
     

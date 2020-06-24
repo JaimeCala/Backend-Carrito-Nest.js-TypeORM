@@ -1,4 +1,4 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn,  OneToMany, ManyToOne } from "typeorm";
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn,  OneToMany, ManyToOne, JoinColumn } from "typeorm";
 import { Venta } from "../venta/venta.entity";
 import { PedidoProducto } from "../pedido-produ/pedido-produ.entity";
 import { Cliente } from "../cliente/cliente.entity";
@@ -16,11 +16,14 @@ export class Pedido extends BaseEntity{
     @Column({type:'varchar', length:100})
     longitud:string;
 
-    @Column({type:'date'})
+    @Column({type:'date', nullable:false})
     fecha:Date;
 
-    @Column({type:'time'})
+    @Column({type:'time', nullable:false})
     hora:Date;
+
+    @Column({type:'varchar', length:25})
+    estado:string;
     
     @CreateDateColumn({type: 'timestamp',  name:'created_at'})
     createdAt: Date;
@@ -35,9 +38,11 @@ export class Pedido extends BaseEntity{
     pedidoproductos: PedidoProducto[];
 
     @ManyToOne(type => Cliente, cliente => cliente.pedidos)
+    @JoinColumn({name:'idcliente'})
     cliente: Cliente;
 
     @ManyToOne(type => Repartidor, repartidor => repartidor.pedidos)
+    @JoinColumn({name:'idrepartidor'})
     repartidor: Repartidor;
     
     

@@ -21,7 +21,7 @@ export class Cliente extends BaseEntity{
     updatedAt: Date;
 
     @OneToOne(type => User, user => user.cliente)
-    @JoinColumn()
+    @JoinColumn({name:'idusuario'})
     user: User;
 
     @OneToMany(type => Pedido, pedido => pedido.cliente)

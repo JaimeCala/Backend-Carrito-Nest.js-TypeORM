@@ -1,7 +1,7 @@
 import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, UpdateDateColumn, CreateDateColumn, OneToMany } from "typeorm";
 import { Operacion } from "../operacion/operacion.entity";
 
-@Entity('Modulo')
+@Entity('modulo')
 export class Modulo extends BaseEntity{
 
     @PrimaryGeneratedColumn('increment')

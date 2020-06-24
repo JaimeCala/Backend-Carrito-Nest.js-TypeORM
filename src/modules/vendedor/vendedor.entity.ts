@@ -15,7 +15,7 @@ export class Vendedor extends BaseEntity{
     updatedAt: Date;
 
     @OneToOne(type => User, user => user.vendedor)
-    @JoinColumn()
+    @JoinColumn({name:'idusuario'})
     user: User;
 
     @OneToMany(type => Venta, venta => venta.vendedor)

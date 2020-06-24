@@ -14,7 +14,7 @@ export class Admin extends BaseEntity{
     updatedAt: Date;
 
     @OneToOne(type => User, user => user.admin)
-    @JoinColumn()
+    @JoinColumn({name:'idusuario'})
     user: User;
 
 }

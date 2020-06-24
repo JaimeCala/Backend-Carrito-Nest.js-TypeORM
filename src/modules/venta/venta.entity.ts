@@ -1,4 +1,4 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, Double, CreateDateColumn, UpdateDateColumn, ManyToOne } from "typeorm";
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, Double, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from "typeorm";
 import { VendedorRepository } from "../vendedor/vendedor.repository";
 import { Vendedor } from "../vendedor/vendedor.entity";
 import { Pedido } from "../pedido/pedido.entity";
@@ -25,9 +25,11 @@ export class Venta extends BaseEntity{
     updatedAt: Date;
 
     @ManyToOne(type => Vendedor, vendedor => vendedor.ventas)
+    @JoinColumn({name:'idvendedor'})
     vendedor: Vendedor;
 
     @ManyToOne(type => Pedido, pedido => pedido.ventas)
+    @JoinColumn({name:'idpedido'})
     pedido: Pedido;
 
     

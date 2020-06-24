@@ -1,4 +1,4 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, UpdateDateColumn, CreateDateColumn, OneToMany, ManyToOne } from "typeorm";
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, UpdateDateColumn, CreateDateColumn, OneToMany, ManyToOne, JoinColumn } from "typeorm";
 import { Producto } from "../producto/producto.entity";
 
 @Entity('imgproducto')
@@ -22,5 +22,6 @@ export class ImgProducto extends BaseEntity{
     updatedAt: Date;
 
     @ManyToOne(type => Producto, producto => producto.imgproductos)
+    @JoinColumn({name:'idproducto'})
     producto: Producto;
 }

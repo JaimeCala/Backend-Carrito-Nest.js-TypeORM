@@ -7,6 +7,7 @@ import { LoginController } from 'src/controller/login/login.controller';
 @Module({
     imports: [TypeOrmModule.forFeature([LoginRepository])],
     providers: [LoginService],
-    controllers: [LoginController]
+    controllers: [LoginController],
+    exports:[LoginService]
 })
 export class LoginModule {}

@@ -1,4 +1,4 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, UpdateDateColumn, CreateDateColumn, ManyToOne } from "typeorm";
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, UpdateDateColumn, CreateDateColumn, ManyToOne, JoinColumn } from "typeorm";
 import { Categoria } from "../categoria/categoria.entity";
 
 @Entity('imgcategoria')
@@ -20,6 +20,7 @@ export class ImgCategoria extends BaseEntity{
     updatedAt: Date;
 
     @ManyToOne(type => Categoria, categoria => categoria.imgcategorias)
+    @JoinColumn({name:'idcategoria'})
     categoria: Categoria;
     
 }

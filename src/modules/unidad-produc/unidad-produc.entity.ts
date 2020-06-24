@@ -1,4 +1,4 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne } from "typeorm";
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from "typeorm";
 import { Producto } from "../producto/producto.entity";
 
 
@@ -18,5 +18,6 @@ export class UnidadProducto extends BaseEntity{
     updatedAt: Date;
 
     @ManyToOne(type => Producto, producto => producto.unidadproductos)
+    @JoinColumn({name:'idproducto'})
     producto: Producto;
 }

@@ -1,4 +1,4 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany } from "typeorm";
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany, JoinColumn } from "typeorm";
 import { Modulo } from "../modulo/modulo.entity";
 import { RolOperacion } from "../rol-operacion/rol-operacion.entity";
 
@@ -18,6 +18,7 @@ export class Operacion extends BaseEntity{
     updatedAt: Date;
 
     @ManyToOne(type => Modulo, modulo => modulo.operacions)
+    @JoinColumn({name:'idmodulo'})
     modulos: Modulo;
 
     @OneToMany(type => RolOperacion, roloperacion => roloperacion.operacions  )
