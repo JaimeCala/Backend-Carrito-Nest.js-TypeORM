@@ -1,12 +1,15 @@
-import { Controller, ParseIntPipe, Get, Post, Delete, Param, Body, Put,  NotFoundException } from '@nestjs/common';
+import { Controller, ParseIntPipe, Get, Post, Delete, Param, Body, Put,  NotFoundException, UseGuards } from '@nestjs/common';
 import { UserService } from 'src/service/user/user.service';
 import { User } from 'src/modules/user/user.entity';
+import { AuthGuard } from '@nestjs/passport';
+import { LocalAuthGuard } from 'src/auth/local-auth.guard';
 
 
 @Controller('user')
 export class UserController {
     constructor(private service:UserService){}
 
+    @UseGuards(AuthGuard())
     @Get('/users')
     async getUsers( ): Promise<User[]>{
         const users = await this.service.getUsers();

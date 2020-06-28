@@ -24,7 +24,7 @@ export class Rol extends BaseEntity{
     @CreateDateColumn({type: 'timestamp',  name:'updated_at'})
     updatedAt: Date;
 
-    @OneToMany(() => User, user => user.rol)
+    @OneToMany(type => User, user => user.rol)
     user: User[];
 
     @OneToMany(type => RolOperacion, roloperacion => roloperacion.rol)

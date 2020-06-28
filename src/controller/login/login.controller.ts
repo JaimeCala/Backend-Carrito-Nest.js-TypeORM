@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Delete, Put, Param, Body, ParseIntPipe, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Put, Param, Body, ParseIntPipe, NotFoundException, UseGuards } from '@nestjs/common';
 import { LoginService } from 'src/service/login/login.service';
 import { Login } from 'src/modules/login/login.entity';
 
@@ -6,6 +6,7 @@ import { Login } from 'src/modules/login/login.entity';
 export class LoginController {
     constructor(private service:LoginService){}
 
+    
     @Get('/logins')
     async getLogins( ): Promise<Login[]>{
         const logins = await this.service.getLogins();

@@ -47,7 +47,8 @@ import { AuthModule } from './modules/auth/auth.module';
             UnidadProducModule, 
             RepartidorModule, 
             RolModule, 
-            RolOperacionModule, AuthModule],
+            RolOperacionModule, 
+            AuthModule],
   controllers: [],
   providers: [],
 })

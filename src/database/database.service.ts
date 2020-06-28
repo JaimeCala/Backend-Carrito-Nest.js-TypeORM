@@ -13,13 +13,13 @@ export const databaseProviders = [
        async useFactory(config: ConfigService){
            return {
                //ssl: true,
-               type: 'mysql',
+               type: 'postgres',
                //type: 'postgres' as 'postgres',
                host: config.get(Configuration.HOST),
-               //superuser: config.get(Configuration.SUPERUSER),
+               superuser: config.get(Configuration.SUPERUSER),
                username: config.get(Configuration.USERNAME),
                password: config.get(Configuration.PASSWORD),
-               port: 3306,
+               port: 5432,
                database: config.get(Configuration.DATABASE),
 
                //los directorios funcionan en localhost sin haberlos habilitado

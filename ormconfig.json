@@ -1,10 +1,10 @@
 {
-    "type": "mysql",
-    
-    "username": "root",
-    "password": "",
+    "type": "postgres",
+    "superuser":"pgadmin",
+    "username": "postgres",
+    "password": "pos",
     "host": "localhost",
-    "port": 3306,
+    "port": 5432,
     "database": "dboficialonline",
     "entities": ["src/modules/**/*.entity{.ts,.js}"],
     "migrations": ["src/database/migration/*{.ts,.js}"],

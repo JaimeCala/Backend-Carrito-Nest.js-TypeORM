@@ -1,8 +1,9 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { UserRepository } from 'src/modules/user/user.repository';
 import { User } from 'src/modules/user/user.entity';
-import { Rol } from 'src/modules/rol/rol.entity';
 import { getRepository } from 'typeorm';
+import { Rol } from 'src/modules/rol/rol.entity';
+
 
 @Injectable()
 export class UserService {
@@ -31,7 +32,11 @@ export class UserService {
     }
 
     async createUser(user: User): Promise<User>{
+        const repo =await getRepository(Rol);
+        const defaulRole = await repo.findOne({where:{nombre: 'GENERAL'}});
+        user.rol = defaulRole;
         const savedUser: User = await this.repository.save(user);
+        
         return savedUser;
     }
 

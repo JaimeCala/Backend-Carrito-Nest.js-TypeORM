@@ -5,7 +5,7 @@ import { Vendedor } from '../vendedor/vendedor.entity';
 import { Cliente } from '../cliente/cliente.entity';
 import { Repartidor } from '../repartidor/repartidor.entity';
 import { Rol } from '../rol/rol.entity';
-import { type } from 'os';
+
 
 @Entity('users')
 export class User extends BaseEntity{
@@ -53,7 +53,7 @@ export class User extends BaseEntity{
     updatedAt: Date;
 
     @ManyToOne( type =>Rol, rol => rol.user)
-    @JoinColumn({name:'idrol'}))
+    @JoinColumn({name:'idrol'})
     rol:Rol;
 
     @OneToMany(type => Login, login => login.user)
