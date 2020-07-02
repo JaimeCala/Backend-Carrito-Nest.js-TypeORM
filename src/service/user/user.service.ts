@@ -4,53 +4,44 @@ import { User } from 'src/modules/user/user.entity';
 import { getRepository } from 'typeorm';
 import { Rol } from 'src/modules/rol/rol.entity';
 
-
 @Injectable()
 export class UserService {
-    constructor(private repository:UserRepository){}
+  constructor(private repository: UserRepository) {}
 
-
-     async getUsers(): Promise<any>{
-         
-        const users: User[] = await this.repository.find({
-            //select:["nombre","paterno"],
-           relations: ["rol"]
-
-    
+  async getUsers(): Promise<any> {
+    const users: User[] = await this.repository.find({
+      //select:["nombre","paterno"],
+      relations: ['rol'],
     });
-        return users;
+    return users;
+  }
+
+  async getUser(id: number): Promise<User> {
+    if (!id) {
+      throw new BadRequestException('Necesita un id');
     }
 
-    async getUser(id: number): Promise<User>{
-        if(!id){
-            throw new BadRequestException('Necesita un id');
-        }
+    const user: User = await this.repository.findOne(id);
 
-        const user: User = await this.repository.findOne(id);
+    return user;
+  }
 
-        return user;
-    }
+  async createUser(user: User): Promise<User> {
+    const repo = await getRepository(Rol);
+    const defaulRole = await repo.findOne({ where: { nombre: 'GENERAL' } });
+    user.rol = defaulRole;
+    const savedUser: User = await this.repository.save(user);
 
-    async createUser(user: User): Promise<User>{
-        const repo =await getRepository(Rol);
-        const defaulRole = await repo.findOne({where:{nombre: 'GENERAL'}});
-        user.rol = defaulRole;
-        const savedUser: User = await this.repository.save(user);
-        
-        return savedUser;
-    }
+    return savedUser;
+  }
 
-    async deleteUser(id: number): Promise<any>{
-        const deleteUser = await this.repository.delete(id);
-        return  deleteUser;
-        
-        
-    } 
+  async deleteUser(id: number): Promise<any> {
+    const deleteUser = await this.repository.delete(id);
+    return deleteUser;
+  }
 
-    async updateUser(id: number, user: User): Promise<any>{
-
-        const updateUser = await this.repository.update(id,user);
-        return  updateUser;
-
-    }
+  async updateUser(id: number, user: User): Promise<any> {
+    const updateUser = await this.repository.update(id, user);
+    return updateUser;
+  }
 }
