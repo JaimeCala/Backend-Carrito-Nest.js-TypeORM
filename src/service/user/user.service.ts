@@ -25,14 +25,24 @@ export class UserService {
 
     return user;
   }
+ 
 
   async createUser(user: User): Promise<User> {
-    const repo = await getRepository(Rol);
-    const defaulRole = await repo.findOne({ where: { nombre: 'GENERAL' } });
-    user.rol = defaulRole;
-    const savedUser: User = await this.repository.save(user);
+    //probar si existe el usuario en la base de datos
+    const { ci } = user;
+    const existsUser = await this.repository.findOne({where: {ci}});
+    
+    if (!existsUser) {
+      const repo = await getRepository(Rol);
+      const defaulRole = await repo.findOne({ where: { nombre: 'GENERAL' } });
+      user.rol = defaulRole;
+      const savedUser: User = await this.repository.save(user);
 
-    return savedUser;
+      return savedUser;
+    }
+    else{
+      throw new BadRequestException("El usuario ya existe");
+    }
   }
 
   async deleteUser(id: number): Promise<any> {
