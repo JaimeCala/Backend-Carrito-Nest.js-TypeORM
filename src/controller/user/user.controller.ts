@@ -2,12 +2,18 @@ import { Controller, ParseIntPipe, Get, Post, Delete, Param, Body, Put,  NotFoun
 import { UserService } from 'src/service/user/user.service';
 import { User } from 'src/modules/user/user.entity';
 import { AuthGuard } from '@nestjs/passport';
-import { LocalAuthGuard } from 'src/auth/local-auth.guard';
 
 
+//@UseGuards(AuthGuard())
 @Controller('user')
 export class UserController {
     constructor(private service:UserService){}
+
+    @Post('/iconDrawer')
+    async getUserIcon(@Body('email') email: string): Promise<User>{
+        const userIcon = await this.service.getUserIcono(email);
+        return userIcon;
+    }
 
     @UseGuards(AuthGuard())
     @Get('/users')

@@ -45,12 +45,32 @@ export class ImgCategoriaController {
         const imgcate = await this.imgCategoriaService.getImgCate(idimg);
         return imgcate;
     }*/
-    @Get('/:idimg')
-    async getImgcategoria(@Param('idimg') idimg: number, @Res() res:getany): Promise<any>{
+    @Get('/imgcategorias')
+    async getImgCategorias(): Promise<ImgCategoria[]>{
+        const imgcategorias = await this.imgCategoriaService.getImgCates();
+        return imgcategorias;
+        
+    }
 
-        res.sendFile(idimg, {root: 'public/uploads'});
+
+
+    @Get('/:imgPath')
+    async getImgcategoria(@Param('imgPath') image: string, @Res() res:getany): Promise<any>{
+
+        res.sendFile(image, {root: 'public/uploads'});
+        
 
     }
+
+    /* @Get('/idimg')
+    async getImgcategoria(@Res() res:getany): Promise<any>{
+
+        res.sendFile( {root: 'public/uploads'});
+        
+
+    }*/
+
+  
 
 
 }

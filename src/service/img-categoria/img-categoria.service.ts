@@ -1,33 +1,44 @@
 import { Injectable, BadRequestException, Res } from '@nestjs/common';
 import { ImgCategoriaRepository } from 'src/modules/img-categoria/img-categoria.repository';
 import { ImgCategoria } from 'src/modules/img-categoria/img-categoria.entity';
+import { Categoria } from 'src/modules/categoria/categoria.entity';
+import { getRepository, Any } from 'typeorm';
 
 @Injectable()
 export class ImgCategoriaService {
   constructor(private repository: ImgCategoriaRepository) {}
 
- 
-
- /* async getImgCate(nombrigm: string ): Promise<any> {
-    if (!nombrigm) {
-      throw new BadRequestException('Necesita un id');
-    }
+   async getImgCates(): Promise<ImgCategoria[]> {
+   
 
     //const imgCate = await this.repository.find({ where: {idimgcategoria: id, root:'public/upload'} });
 
-    const imgCate = await this.repository.find({ where: {nombreimgcategoria: nombrigm} });
+    const imgCate:ImgCategoria[] = await this.repository.find();
     return imgCate;
    
 
-  }*/
+  }
 
-  async createImgCategoria(imgnombre: string, imglink:string ): Promise<ImgCategoria> {
-    //const repo = await getRepository(Rol);
-    //const defaulRole = await repo.findOne({ where: { nombre: 'GENERAL' } });
-    //user.rol = defaulRole;
-    const savedImgcate: ImgCategoria = await this.repository.save({nombreimgcategoria: imgnombre,linkimgcategoria: imglink});
 
+  async createImgCategoria(
+    imgnombre: string,
+    imglink: string,
+    
+  ): Promise<ImgCategoria> {
+    const imgcategoria = new ImgCategoria();
+
+    const categoria = await getRepository(Categoria)
+      .createQueryBuilder('categoria')
+      .select('MAX(categoria.idcategoria)', 'max');
+    const maximo = await categoria.getRawOne();
+    //asignando id de la categoria
+
+    imgcategoria.nombreimgcategoria = imgnombre;
+    imgcategoria.linkimgcategoria = imglink;
+    imgcategoria.categoria = maximo.max;
+    const savedImgcate = await this.repository.save(imgcategoria);
     return savedImgcate;
+   
   }
 
   /*async deleteUser(id: number): Promise<any> {

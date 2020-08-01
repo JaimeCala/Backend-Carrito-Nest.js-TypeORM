@@ -8,6 +8,15 @@ import { Rol } from 'src/modules/rol/rol.entity';
 export class UserService {
   constructor(private repository: UserRepository) {}
 
+  async getUserIcono(email: string): Promise<any>{
+
+   const user = await this.repository.findOne({where:{email}}); 
+
+    
+    return user;
+
+  }
+
   async getUsers(): Promise<any> {
     const users: User[] = await this.repository.find({
       //select:["nombre","paterno"],

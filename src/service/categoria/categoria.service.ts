@@ -11,7 +11,7 @@ export class CategoriaService {
   async getCategorias(): Promise<any> {
     const categoria: Categoria[] = await this.repository.find({
       //select:["nombre","paterno"],
-      //relations: ['ImgCategoria'],
+      relations: ['imgcategorias'],
     });
     return categoria;
   }
