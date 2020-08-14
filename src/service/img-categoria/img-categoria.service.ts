@@ -10,21 +10,14 @@ export class ImgCategoriaService {
 
    async getImgCates(): Promise<ImgCategoria[]> {
    
-
-    //const imgCate = await this.repository.find({ where: {idimgcategoria: id, root:'public/upload'} });
-
     const imgCate:ImgCategoria[] = await this.repository.find();
     return imgCate;
    
 
   }
 
-
-  async createImgCategoria(
-    imgnombre: string,
-    imglink: string,
+  async createImgCategoria(imgnombre: string, imglink: string, ): Promise<ImgCategoria> {
     
-  ): Promise<ImgCategoria> {
     const imgcategoria = new ImgCategoria();
 
     const categoria = await getRepository(Categoria)

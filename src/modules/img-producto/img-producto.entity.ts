@@ -13,7 +13,7 @@ export class ImgProducto extends BaseEntity{
     @Column({type:'varchar', nullable:false})
     linkimgprodu:string;
 
-    @Column({type:'varchar', length:100})
+    @Column({type:'varchar', length:100, nullable:true})
     descripcion:string;
     @CreateDateColumn({type: 'timestamp',  name:'created_at'})
     createdAt: Date;

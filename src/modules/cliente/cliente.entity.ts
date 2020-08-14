@@ -8,10 +8,10 @@ export class Cliente extends BaseEntity{
     @PrimaryGeneratedColumn('increment')
     idcliente:number;
 
-    @Column({type:'varchar', length:100, })
+    @Column({type:'varchar', length:100, nullable:true})
     identificador: string;
 
-    @Column({type:'varchar', length:100,})
+    @Column({type:'varchar', length:100,nullable:true})
     observacion: string;
 
     @CreateDateColumn({type: 'timestamp',  name:'created_at'})

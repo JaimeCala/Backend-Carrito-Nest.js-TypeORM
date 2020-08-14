@@ -23,6 +23,13 @@ export class CategoriaController {
         return categoria;
     }
 
+    //traemos las tablas relacionadas, producto, unidadproducto,imgproducto
+    @Post('/idcateprodu')
+    async getProducto(@Body('idcategoria') idcategoria: number): Promise<Categoria>{
+        const producto = await this.service.postCateProdu( idcategoria);
+        return producto;
+    }
+
 
     //crea categoria
 

@@ -11,7 +11,7 @@ export class PedidoProducto extends BaseEntity{
     @Column()
     cantidad:number;
 
-    @Column({type:'varchar', length:100})
+    @Column({type:'varchar', length:100,nullable:true})
     descripcion:string;
 
     @CreateDateColumn({type: 'timestamp',  name:'created_at'})

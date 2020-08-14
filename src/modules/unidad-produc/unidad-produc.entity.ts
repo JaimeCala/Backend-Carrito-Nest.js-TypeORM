@@ -8,7 +8,7 @@ export class UnidadProducto extends BaseEntity{
     @PrimaryGeneratedColumn('increment')
     idunidadproducto:number;
 
-    @Column({type:'varchar', length:20})
+    @Column({type:'varchar', length:20,nullable:true})
     valor:string;
     
     @CreateDateColumn({type: 'timestamp',  name:'created_at'})

@@ -29,22 +29,14 @@ export class ImgCategoriaController {
         })
     }
     
-    
     ))
     async  uploadFiles(@UploadedFile() file: filetipo): Promise<any>{
         
-     
     const guardarImg = await this.imgCategoriaService.createImgCategoria(`${file.filename }`, `${file.path }`);
     return guardarImg;
             
-             
     }
 
-   /* @Get('/:idimg')
-    async getUser(@Param('idimg', ParseIntPipe) idimg: number): Promise<any>{
-        const imgcate = await this.imgCategoriaService.getImgCate(idimg);
-        return imgcate;
-    }*/
     @Get('/imgcategorias')
     async getImgCategorias(): Promise<ImgCategoria[]>{
         const imgcategorias = await this.imgCategoriaService.getImgCates();
@@ -52,14 +44,10 @@ export class ImgCategoriaController {
         
     }
 
-
-
     @Get('/:imgPath')
     async getImgcategoria(@Param('imgPath') image: string, @Res() res:getany): Promise<any>{
 
         res.sendFile(image, {root: 'public/uploads'});
-        
-
     }
 
     /* @Get('/idimg')

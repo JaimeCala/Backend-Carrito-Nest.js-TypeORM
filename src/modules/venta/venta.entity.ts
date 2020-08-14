@@ -15,7 +15,7 @@ export class Venta extends BaseEntity{
     @Column({type:'float', nullable:false})
     total:number;
 
-    @Column()
+    @Column({nullable:true})
     cantidad:number;
 
     @CreateDateColumn({type: 'timestamp',  name:'created_at'})

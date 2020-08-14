@@ -25,7 +25,7 @@ export class User extends BaseEntity{
     @Column({type: 'varchar', length:25, nullable: false})
     paterno: string;
 
-    @Column({type: 'varchar', length:25 })
+    @Column({type: 'varchar', length:25, nullable:true })
     materno: string;
 
     @Column({type: 'varchar', unique:true, nullable: false})

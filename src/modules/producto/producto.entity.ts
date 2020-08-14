@@ -32,13 +32,13 @@ export class Producto extends  BaseEntity{
     @Column({type:'float', nullable:false})
     precio:number;
 
-    @Column({type:'varchar', length:15})
+    @Column({type:'varchar', length:15,nullable:true})
     disponible:string;
 
-    @Column({type:'float'})
+    @Column({type:'float',nullable:true})
     peso:number;
 
-    @Column({type:'date'})
+    @Column({type:'date',nullable:true})
     fecha:Date;
 
     @CreateDateColumn({type: 'timestamp',  name:'created_at'})

@@ -22,7 +22,7 @@ export class Pedido extends BaseEntity{
     @Column({type:'time', nullable:false})
     hora:Date;
 
-    @Column({type:'varchar', length:25})
+    @Column({type:'varchar', length:25,nullable:true})
     estado:string;
     
     @CreateDateColumn({type: 'timestamp',  name:'created_at'})
