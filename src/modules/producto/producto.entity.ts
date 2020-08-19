@@ -47,16 +47,16 @@ export class Producto extends  BaseEntity{
     @UpdateDateColumn({type: 'timestamp',  name:'updated_at'})
     updatedAt: Date;
 
-    @OneToMany(type => PedidoProducto, pedidoproducto => pedidoproducto.producto)
+    @OneToMany(() => PedidoProducto, pedidoproducto => pedidoproducto.producto)
     pedidoproductos: PedidoProducto[];
 
-    @OneToMany(type => UnidadProducto, unidadproducto => unidadproducto.producto)
+    @OneToMany(() => UnidadProducto, unidadproducto => unidadproducto.producto)
     unidadproductos: UnidadProducto[];
 
-    @OneToMany(type => ImgProducto, imgproducto => imgproducto.producto)
+    @OneToMany(() => ImgProducto, imgproducto => imgproducto.producto)
     imgproductos: ImgProducto[];
 
-    @ManyToOne(type => Categoria, categoria => categoria.productos)
+    @ManyToOne(() => Categoria, categoria => categoria.productos)
     @JoinColumn({name:'idcategoria'})
     categoria: Categoria;
 

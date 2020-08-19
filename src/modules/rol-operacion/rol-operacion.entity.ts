@@ -14,11 +14,11 @@ export class RolOperacion extends BaseEntity{
     @UpdateDateColumn({type: 'timestamp',  name:'updated_at'})
     updatedAt: Date;
     
-    @ManyToOne(type => Operacion, operacion => operacion.roloperacions)
+    @ManyToOne(() => Operacion, operacion => operacion.roloperacions)
     @JoinColumn({name:'idoperacion'})
     operacions: Operacion;
 
-    @ManyToOne(type => Rol, rol => rol.roloperacions)
+    @ManyToOne(() => Rol, rol => rol.roloperacions)
     @JoinColumn({name:'idrol'})
     rol: Rol;
 }

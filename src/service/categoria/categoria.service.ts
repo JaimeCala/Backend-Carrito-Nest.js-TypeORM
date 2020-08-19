@@ -60,6 +60,7 @@ export class CategoriaService {
                             .addSelect('producto.nombre','produnombre')
                             .addSelect('producto.precio','produprecio')
                             .addSelect('producto.peso','produpeso')
+                            .addSelect('producto.descripcion', 'produdescripcion')
                             .addSelect('imgproducto.idimgproducto','imgidprodu')
                             .addSelect('imgproducto.nombreimgprodu','imgnombreprodu')
                             .addSelect('unidadprodu.idunidadproducto','iduniprodu')

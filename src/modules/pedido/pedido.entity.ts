@@ -1,4 +1,4 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn,  OneToMany, ManyToOne, JoinColumn } from "typeorm";
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn,  OneToMany, ManyToOne, JoinColumn, OneToOne } from "typeorm";
 import { Venta } from "../venta/venta.entity";
 import { PedidoProducto } from "../pedido-produ/pedido-produ.entity";
 import { Cliente } from "../cliente/cliente.entity";
@@ -9,6 +9,9 @@ export class Pedido extends BaseEntity{
 
     @PrimaryGeneratedColumn('increment')
     idpedido:number;
+
+    @Column({type:'varchar', length:250,nullable:true})
+    comentario:string;
 
     @Column({type:'varchar', length:100})
     latitud:string;
@@ -31,18 +34,18 @@ export class Pedido extends BaseEntity{
     @UpdateDateColumn({type: 'timestamp',  name:'updated_at'})
     updatedAt: Date;
 
-    @OneToMany(type => Venta, venta => venta.pedido)
+    @OneToMany(() => Venta, venta => venta.pedido)
     ventas: Venta[];
 
-    @OneToMany(type => PedidoProducto, pedidoproducto => pedidoproducto.pedido)
+    @OneToMany(() => PedidoProducto, pedidoproducto => pedidoproducto.pedido)
     pedidoproductos: PedidoProducto[];
 
-    @ManyToOne(type => Cliente, cliente => cliente.pedidos)
+    @ManyToOne(() => Cliente, cliente => cliente.pedidos)
     @JoinColumn({name:'idcliente'})
     cliente: Cliente;
 
-    @ManyToOne(type => Repartidor, repartidor => repartidor.pedidos)
-    @JoinColumn({name:'idrepartidor'})
+    @OneToOne(() => Repartidor, repartidor => repartidor.pedidos)
+   // @JoinColumn({name:'idrepartidor'})
     repartidor: Repartidor;
     
     

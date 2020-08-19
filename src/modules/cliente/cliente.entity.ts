@@ -8,11 +8,11 @@ export class Cliente extends BaseEntity{
     @PrimaryGeneratedColumn('increment')
     idcliente:number;
 
-    @Column({type:'varchar', length:100, nullable:true})
+    /*@Column({type:'varchar', length:100, nullable:true})
     identificador: string;
 
     @Column({type:'varchar', length:100,nullable:true})
-    observacion: string;
+    observacion: string;*/
 
     @CreateDateColumn({type: 'timestamp',  name:'created_at'})
     createdAt: Date;
@@ -20,11 +20,11 @@ export class Cliente extends BaseEntity{
     @UpdateDateColumn({type: 'timestamp',  name:'updated_at'})
     updatedAt: Date;
 
-    @OneToOne(type => User, user => user.cliente)
+    @OneToOne(() => User, user => user.cliente)
     @JoinColumn({name:'idusuario'})
     user: User;
 
-    @OneToMany(type => Pedido, pedido => pedido.cliente)
+    @OneToMany(() => Pedido, pedido => pedido.cliente)
     pedidos: Pedido[];
 
 }

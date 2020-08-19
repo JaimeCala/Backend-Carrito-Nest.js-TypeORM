@@ -17,9 +17,9 @@ export class Categoria extends BaseEntity{
      @UpdateDateColumn({type: 'timestamp',  name:'updated_at'})
      updatedAt: Date;
 
-     @OneToMany(type => Producto, producto => producto.categoria)
+     @OneToMany(() => Producto, producto => producto.categoria)
      productos: Producto[];
      
-     @OneToMany(type => ImgCategoria, imgcategoria => imgcategoria.categoria)
+     @OneToMany(() => ImgCategoria, imgcategoria => imgcategoria.categoria)
      imgcategorias: ImgCategoria[];
 }

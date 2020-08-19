@@ -13,7 +13,7 @@ export class Admin extends BaseEntity{
     @UpdateDateColumn({type: 'timestamp',  name:'updated_at'})
     updatedAt: Date;
 
-    @OneToOne(type => User, user => user.admin)
+    @OneToOne(() => User, user => user.admin)
     @JoinColumn({name:'idusuario'})
     user: User;
 

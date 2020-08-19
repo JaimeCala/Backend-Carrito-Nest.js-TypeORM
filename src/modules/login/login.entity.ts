@@ -27,7 +27,7 @@ export class Login extends BaseEntity{
     @UpdateDateColumn({type: 'timestamp',  name:'updated_at'})
     updatedAt: Date;
 
-    @ManyToOne(type => User, user => user.logins)
+    @ManyToOne(() => User, user => user.logins)
     @JoinColumn({name:'idusuario'})
     user: User;
 

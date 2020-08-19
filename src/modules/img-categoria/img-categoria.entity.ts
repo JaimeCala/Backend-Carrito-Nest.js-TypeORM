@@ -19,7 +19,7 @@ export class ImgCategoria extends BaseEntity{
     @UpdateDateColumn({type: 'timestamp',  name:'updated_at'})
     updatedAt: Date;
 
-    @ManyToOne(type => Categoria, categoria => categoria.imgcategorias)
+    @ManyToOne(() => Categoria, categoria => categoria.imgcategorias)
     @JoinColumn({name:'idcategoria'})
     categoria: Categoria;
     

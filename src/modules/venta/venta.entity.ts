@@ -24,11 +24,11 @@ export class Venta extends BaseEntity{
     @UpdateDateColumn({type: 'timestamp',  name:'updated_at'})
     updatedAt: Date;
 
-    @ManyToOne(type => Vendedor, vendedor => vendedor.ventas)
+    @ManyToOne(() => Vendedor, vendedor => vendedor.ventas)
     @JoinColumn({name:'idvendedor'})
     vendedor: Vendedor;
 
-    @ManyToOne(type => Pedido, pedido => pedido.ventas)
+    @ManyToOne(() => Pedido, pedido => pedido.ventas)
     @JoinColumn({name:'idpedido'})
     pedido: Pedido;
 

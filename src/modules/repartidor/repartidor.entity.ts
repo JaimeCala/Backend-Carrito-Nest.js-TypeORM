@@ -20,11 +20,12 @@ export class Repartidor extends BaseEntity{
     @UpdateDateColumn({type: 'timestamp',  name:'updated_at'})
     updatedAt: Date;
 
-    @OneToOne(type => User , user => user.repartidor)
+    @OneToOne(() => User , user => user.repartidor)
     @JoinColumn({name:'idusuario'})
     user: User;
 
-    @OneToMany(type => Pedido, pedido => pedido.repartidor)
+    @OneToOne(() => Pedido, pedido => pedido.repartidor)
+    @JoinColumn({name:'idpedido'})
     pedidos: Pedido[];
 
 }

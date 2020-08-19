@@ -13,15 +13,15 @@ export class ImgProducto extends BaseEntity{
     @Column({type:'varchar', nullable:false})
     linkimgprodu:string;
 
-    @Column({type:'varchar', length:100, nullable:true})
-    descripcion:string;
+    /*@Column({type:'varchar', length:100, nullable:true})
+    descripcion:string;*/
     @CreateDateColumn({type: 'timestamp',  name:'created_at'})
     createdAt: Date;
 
     @UpdateDateColumn({type: 'timestamp',  name:'updated_at'})
     updatedAt: Date;
 
-    @ManyToOne(type => Producto, producto => producto.imgproductos)
+    @ManyToOne(() => Producto, producto => producto.imgproductos)
     @JoinColumn({name:'idproducto'})
     producto: Producto;
 }

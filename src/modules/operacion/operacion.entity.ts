@@ -17,11 +17,11 @@ export class Operacion extends BaseEntity{
     @UpdateDateColumn({type: 'timestamp',  name:'updated_at'})
     updatedAt: Date;
 
-    @ManyToOne(type => Modulo, modulo => modulo.operacions)
+    @ManyToOne(() => Modulo, modulo => modulo.operacions)
     @JoinColumn({name:'idmodulo'})
     modulos: Modulo;
 
-    @OneToMany(type => RolOperacion, roloperacion => roloperacion.operacions  )
+    @OneToMany(() => RolOperacion, roloperacion => roloperacion.operacions  )
     roloperacions: RolOperacion[];
 
 }

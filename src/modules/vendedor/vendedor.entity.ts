@@ -14,11 +14,11 @@ export class Vendedor extends BaseEntity{
     @UpdateDateColumn({type: 'timestamp',  name:'updated_at'})
     updatedAt: Date;
 
-    @OneToOne(type => User, user => user.vendedor)
+    @OneToOne(() => User, user => user.vendedor)
     @JoinColumn({name:'idusuario'})
     user: User;
 
-    @OneToMany(type => Venta, venta => venta.vendedor)
+    @OneToMany(() => Venta, venta => venta.vendedor)
     ventas: Venta[];
 
 

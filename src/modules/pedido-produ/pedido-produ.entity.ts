@@ -11,8 +11,8 @@ export class PedidoProducto extends BaseEntity{
     @Column()
     cantidad:number;
 
-    @Column({type:'varchar', length:100,nullable:true})
-    descripcion:string;
+    /*@Column({type:'varchar', length:100,nullable:true})
+    descripcion:string;*/
 
     @CreateDateColumn({type: 'timestamp',  name:'created_at'})
     createdAt: Date;
@@ -20,11 +20,11 @@ export class PedidoProducto extends BaseEntity{
     @UpdateDateColumn({type: 'timestamp',  name:'updated_at'})
     updatedAt: Date;    
 
-    @ManyToOne(type => Pedido, pedido => pedido.pedidoproductos)
+    @ManyToOne(() => Pedido, pedido => pedido.pedidoproductos)
     @JoinColumn({name:'idpedido'})
     pedido:Pedido;
 
-    @ManyToOne(type => Producto, producto => producto.pedidoproductos)
+    @ManyToOne(() => Producto, producto => producto.pedidoproductos)
     @JoinColumn({name:'idproducto'})
     producto: Producto;
 

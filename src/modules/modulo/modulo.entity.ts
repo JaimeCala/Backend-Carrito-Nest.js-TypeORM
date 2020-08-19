@@ -16,7 +16,7 @@ export class Modulo extends BaseEntity{
     @UpdateDateColumn({type: 'timestamp',  name:'updated_at'})
     updatedAt: Date;
 
-    @OneToMany(type => Operacion, operacion => operacion.modulos)
+    @OneToMany(() => Operacion, operacion => operacion.modulos)
     operacions: Operacion[];
 
 }

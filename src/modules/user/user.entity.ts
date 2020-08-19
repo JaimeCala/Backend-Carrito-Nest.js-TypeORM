@@ -52,23 +52,23 @@ export class User extends BaseEntity{
     @UpdateDateColumn({type: 'timestamp',  name:'updated_at'})
     updatedAt: Date;
 
-    @ManyToOne( type =>Rol, rol => rol.user)
+    @ManyToOne( () =>Rol, rol => rol.user)
     @JoinColumn({name:'idrol'})
     rol:Rol;
 
-    @OneToMany(type => Login, login => login.user)
+    @OneToMany(() => Login, login => login.user)
     logins: Login[];
 
-    @OneToOne(type => Admin, admin => admin.user)
+    @OneToOne(() => Admin, admin => admin.user)
     admin: Admin;
 
-    @OneToOne(type => Vendedor, vendedor => vendedor.user)
+    @OneToOne(() => Vendedor, vendedor => vendedor.user)
     vendedor: Vendedor;
 
-    @OneToOne(type => Cliente, cliente => cliente.user)
+    @OneToOne(() => Cliente, cliente => cliente.user)
     cliente: Cliente;
 
-    @OneToOne(type => Repartidor, repartidor => repartidor.user)
+    @OneToOne(() => Repartidor, repartidor => repartidor.user)
     repartidor: Repartidor;
 
     

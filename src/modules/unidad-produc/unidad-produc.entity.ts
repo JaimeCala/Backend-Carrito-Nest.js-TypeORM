@@ -17,7 +17,7 @@ export class UnidadProducto extends BaseEntity{
     @UpdateDateColumn({type: 'timestamp',  name:'updated_at'})
     updatedAt: Date;
 
-    @ManyToOne(type => Producto, producto => producto.unidadproductos)
+    @ManyToOne(() => Producto, producto => producto.unidadproductos)
     @JoinColumn({name:'idproducto'})
     producto: Producto;
 }
