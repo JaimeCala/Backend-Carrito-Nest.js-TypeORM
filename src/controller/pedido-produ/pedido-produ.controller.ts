@@ -1,6 +1,7 @@
 import { Controller, Put, Param, ParseIntPipe, Body, NotFoundException, Delete, Post, Get } from '@nestjs/common';
 import { PedidoProduService } from 'src/service/pedido-produ/pedido-produ.service';
 import { PedidoProducto } from 'src/modules/pedido-produ/pedido-produ.entity';
+import { Pedido } from 'src/modules/pedido/pedido.entity';
 
 @Controller('pedido-produ')
 export class PedidoProduController {
@@ -27,6 +28,13 @@ constructor(private service:PedidoProduService){}
         return createdPedidoProducto;
     }
 
+
+    /*@Post('/create')
+    async createPedidoProducto(@Body() cart: string):Promise<PedidoProducto>{
+        const createdPedidoProducto = await this.service.createPedidoProducto(cart);
+        return createdPedidoProducto;
+    }*/
+    
     @Delete('/:id')
     async deletepedidoproducto(@Param('id', ParseIntPipe) id: number): Promise<void>{
         const pedidoproductodelete = await this.service.deletePedidoProducto(id);

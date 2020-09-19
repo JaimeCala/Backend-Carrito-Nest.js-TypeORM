@@ -1,6 +1,8 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { PedidoRepository } from 'src/modules/pedido/pedido.repository';
 import { Pedido } from 'src/modules/pedido/pedido.entity';
+import { getManager, getRepository } from 'typeorm';
+import { Cliente } from 'src/modules/cliente/cliente.entity';
 
 @Injectable()
 export class PedidoService {
@@ -25,10 +27,24 @@ export class PedidoService {
 
     async createPedido(pedido: Pedido): Promise<any>{
 
-        //insertando el usuario que se registro ultimo
-        pedido.cliente = pedido.cliente;
+        /*const {cliente} = pedido;
+    
+        console.log("===============esto es lo que viene como id usuario"+cliente);
+        
+        const existCliente = await getRepository(Cliente).createQueryBuilder("cliente")
+                                                      .select("cliente.idcliente","cliente")
+                                                      .where({user:cliente});
+                                                      
+        const idcli = await existCliente.getRawOne();
+        pedido.cliente = idcli.cliente;
+        console.log("-------------------------->>>>>>>>>>>>>>>>>>>>>"+idcli.cliente);*/
+        
+        console.log("----------------SE VA INSERTAR DATOS A PEDIDOS-------------");
+        pedido.cliente= pedido.cliente;
+        const pedidoprodu= await this.repository.save(pedido);
+        console.log("----------------se insertooo-------------"+pedidoprodu.idpedido);
+        return pedidoprodu;
        
-        await this.repository.save(pedido);
 
     }
 

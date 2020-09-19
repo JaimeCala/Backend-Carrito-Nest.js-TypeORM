@@ -32,9 +32,24 @@ export class ClienteService {
 
     async createCliente(cliente: Cliente): Promise<any>{
 
-        //insertando a cliente campos
-        cliente.user = cliente.user ;
-        await this.repository.save(cliente);
+        const{user} = cliente;
+        
+        const existsUser = await this.repository.findOne({where: {user}});
+
+        if(!existsUser)
+        {
+            //insertando a cliente campos
+            cliente.user = cliente.user ;
+            await this.repository.save(cliente);
+            const existsUser = await this.repository.findOne({where: {user}});
+            return existsUser;
+        }
+        
+        return existsUser;
+        
+        
+        
+        
 
     }
 

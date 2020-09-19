@@ -1,4 +1,4 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn,  OneToMany, ManyToOne, JoinColumn, OneToOne } from "typeorm";
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn,  OneToMany, ManyToOne, JoinColumn, OneToOne, Double } from "typeorm";
 import { Venta } from "../venta/venta.entity";
 import { PedidoProducto } from "../pedido-produ/pedido-produ.entity";
 import { Cliente } from "../cliente/cliente.entity";
@@ -12,6 +12,12 @@ export class Pedido extends BaseEntity{
 
     @Column({type:'varchar', length:250,nullable:true})
     comentario:string;
+
+    @Column({type:'varchar', length:250,nullable:true})
+    direccion:string;
+
+    @Column({type:'float', nullable:true})
+    precio:number;
 
     @Column({type:'varchar', length:100})
     latitud:string;
