@@ -1,14 +1,19 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { RolRepository } from 'src/modules/rol/rol.repository';
 import { Rol } from 'src/modules/rol/rol.entity';
+import { getManager, getRepository } from 'typeorm';
+import { User } from 'src/modules/user/user.entity';
 
 @Injectable()
 export class RolService {
     constructor(private repository:RolRepository){}
 
-    async getRoles(): Promise<Rol[]>{
+    async getRoles(): Promise<any>{
         const roles: Rol[] = await this.repository.find();
         return roles;
+
+    
+
     }
 
     async getRol(id: number): Promise<Rol>{

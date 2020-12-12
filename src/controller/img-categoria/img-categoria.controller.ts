@@ -1,9 +1,9 @@
-import { Controller, Post, UseInterceptors, Param, UploadedFile, Get, ParseIntPipe, Res } from '@nestjs/common';
+import { Controller, Post, UseInterceptors, Param, UploadedFile, Get, ParseIntPipe, Res, Put, Body } from '@nestjs/common';
 import { ImgCategoriaService } from 'src/service/img-categoria/img-categoria.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
-import { async } from 'rxjs/internal/scheduler/async';
+
 import { ImgCategoria } from 'src/modules/img-categoria/img-categoria.entity';
 import { filetipo } from './interface.imgcategoria';
 import { getany } from './interface.getcategoria';
@@ -57,6 +57,37 @@ export class ImgCategoriaController {
         
 
     }*/
+    @Put('/:idimgcategoria')
+    @UseInterceptors(FileInterceptor('file',
+    {
+        
+        storage: diskStorage({
+            destination: './public/uploads',
+           
+                 filename:(req, file, cb)=> {
+       
+                    const randomName = Array(32).fill(null).map(()=> (Math.round(Math.random()*16)).toString(16)).join('')
+             
+                    return cb(null, `${randomName}${extname(file.originalname)}`)
+
+            }
+            
+
+           
+        })
+    }
+    
+    ))
+    async updateImgCategoria(@Param('idimgcategoria', ParseIntPipe) idimgcategoria: number ,@UploadedFile() file: filetipo): Promise<any>{
+       if(file!=null)
+       {
+           const updateimgcategoria = await this.imgCategoriaService.updateImgCategoria(idimgcategoria,`${file.filename }`, `${file.path }`);
+        return updateimgcategoria;
+       }
+       return
+        
+    }
+    
 
   
 

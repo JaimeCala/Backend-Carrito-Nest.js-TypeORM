@@ -18,6 +18,10 @@ export class Rol extends BaseEntity{
     @Column({type: 'time', nullable:false})
     hora:Date;
 
+    @Column({type:'varchar',default: 'ACTIVO', length:10,  nullable:false})
+    estado:string;
+
+
     @CreateDateColumn({type: 'timestamp',  name:'created_at'})
     createdAt: Date;
 

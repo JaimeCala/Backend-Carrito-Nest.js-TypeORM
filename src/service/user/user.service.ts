@@ -1,8 +1,9 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { UserRepository } from 'src/modules/user/user.repository';
 import { User } from 'src/modules/user/user.entity';
-import { getRepository } from 'typeorm';
+import { getManager, getRepository } from 'typeorm';
 import { Rol } from 'src/modules/rol/rol.entity';
+import { Login } from 'src/modules/login/login.entity';
 
 @Injectable()
 export class UserService {
@@ -20,9 +21,12 @@ export class UserService {
   async getUsers(): Promise<any> {
     const users: User[] = await this.repository.find({
       //select:["nombre","paterno"],
-      relations: ['rol'],
+      relations: ['logins','rol'],
+      where: {estado:'ACTIVO'}
     });
     return users;
+
+
   }
 
   async getUser(id: number): Promise<User> {
@@ -53,10 +57,29 @@ export class UserService {
       throw new BadRequestException("El usuario ya existe");
     }
   }
+  async createUserFrontend(user: User): Promise<User> {
+    //probar si existe el usuario en la base de datos
+    const { ci } = user;
+    const existsUser = await this.repository.findOne({where: {ci}});
+    
+    if (!existsUser) {
+      
+      user.rol = user.rol;
+      const savedUser: User = await this.repository.save(user);
+
+      return savedUser;
+    }
+    else{
+      throw new BadRequestException("El usuario ya existe");
+    }
+  }
+
 
   async deleteUser(id: number): Promise<any> {
-    const deleteUser = await this.repository.delete(id);
-    return deleteUser;
+    const deleteUser = await this.repository.findOne(id);
+    deleteUser.estado = 'INACTIVO'
+    this.repository.save(deleteUser);
+    return console.log("Usuario Inactivo");
   }
 
   async updateUser(id: number, user: User): Promise<any> {

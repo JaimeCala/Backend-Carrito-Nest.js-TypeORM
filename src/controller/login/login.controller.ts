@@ -29,14 +29,14 @@ export class LoginController {
         return createdLogin;
     }
 
-    @Delete('/:id')
+    @Delete('/delete/:id')
     async deletelogin(@Param('id', ParseIntPipe) id: number): Promise<void>{
         const logindelete = await this.service.deleteLogin(id);
         if(!logindelete) throw new NotFoundException('No hay registro con ese id para eliminar');
         return logindelete;
 
     }
-    @Put('/:id')
+    @Put('/put/:id')
     async updatelogin(@Param('id', ParseIntPipe) id: number , @Body() login: Login): Promise<Login>{
         const updatelogin = await this.service.updateLogin(id, login);
         return updatelogin;

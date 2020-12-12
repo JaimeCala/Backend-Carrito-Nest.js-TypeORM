@@ -11,6 +11,13 @@ export class PedidoProducto extends BaseEntity{
     @Column()
     cantidad:number;
 
+    @Column({type:'float',  nullable:true})
+    precio_uni:number;
+
+    @Column({type:'float',  nullable:true})
+    precio_total:number;
+
+
     /*@Column({type:'varchar', length:100,nullable:true})
     descripcion:string;*/
 

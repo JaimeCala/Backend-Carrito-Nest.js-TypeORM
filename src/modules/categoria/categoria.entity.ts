@@ -11,6 +11,10 @@ export class Categoria extends BaseEntity{
      @Column({type:'varchar', length:50, nullable:false})
      nombre:string;
 
+     @Column({type:'varchar', default: 'ACTIVO' ,length:10, nullable:false})
+     estado:string;
+
+
      @CreateDateColumn({type: 'timestamp',  name:'created_at'})
      createdAt: Date;
 

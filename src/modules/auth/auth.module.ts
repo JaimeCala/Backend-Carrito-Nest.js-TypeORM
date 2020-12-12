@@ -10,12 +10,14 @@ import { Configuration } from 'src/config/config.keys';
 import { JwtStrategy } from 'src/auth/strategies/jwt.strategy';
 import { ConfigModule } from 'src/config/config.module';
 import { LocalStrategy } from 'src/auth/strategies/local.strategy';
+import { RolRepository } from '../rol/rol.repository';
+import { UserRepository } from '../user/user.repository';
 
 
 
 @Module({
     imports: [
-       TypeOrmModule.forFeature([AuthRepository]), 
+       TypeOrmModule.forFeature([AuthRepository,UserRepository]), 
        PassportModule.register({
            defaultStrategy: 'jwt',
 

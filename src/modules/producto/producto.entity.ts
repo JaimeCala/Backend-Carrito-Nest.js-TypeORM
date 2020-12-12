@@ -3,6 +3,7 @@ import { PedidoProducto } from "../pedido-produ/pedido-produ.entity";
 import { UnidadProducto } from "../unidad-produc/unidad-produc.entity";
 import { ImgProducto } from "../img-producto/img-producto.entity";
 import { Categoria } from "../categoria/categoria.entity";
+import { Compra } from "../compra/compra.entity";
 
 
 @Entity('producto')
@@ -35,6 +36,10 @@ export class Producto extends  BaseEntity{
     @Column({type:'varchar', length:15,nullable:true})
     disponible:string;
 
+    @Column({type:'varchar',default:'ACTIVO', length:10, nullable:false})
+    estado: string;
+
+
     @Column({type:'float',nullable:true})
     peso:number;
 
@@ -59,6 +64,9 @@ export class Producto extends  BaseEntity{
     @ManyToOne(() => Categoria, categoria => categoria.productos)
     @JoinColumn({name:'idcategoria'})
     categoria: Categoria;
+
+    @OneToMany(() => Compra, compra => compra.producto)
+    producto: Compra[];
 
     
 

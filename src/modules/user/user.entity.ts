@@ -54,7 +54,7 @@ export class User extends BaseEntity{
 
     @ManyToOne( () =>Rol, rol => rol.user)
     @JoinColumn({name:'idrol'})
-    rol:Rol;
+    rol: Rol;
 
     @OneToMany(() => Login, login => login.user)
     logins: Login[];

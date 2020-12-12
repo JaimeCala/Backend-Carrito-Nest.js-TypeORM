@@ -78,6 +78,7 @@ export class CategoriaService {
   //crea una nueva categoria
 
   async createCategoria(categoria: Categoria): Promise<Categoria> {
+  
 
     const savedCategoria: Categoria = await this.repository.save(categoria);
 

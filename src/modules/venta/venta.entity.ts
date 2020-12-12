@@ -1,5 +1,5 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, Double, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from "typeorm";
-import { VendedorRepository } from "../vendedor/vendedor.repository";
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column,  CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from "typeorm";
+
 import { Vendedor } from "../vendedor/vendedor.entity";
 import { Pedido } from "../pedido/pedido.entity";
 
@@ -9,14 +9,18 @@ export class Venta extends BaseEntity{
     @PrimaryGeneratedColumn('increment')
     idventa:number;
 
-    @Column({type:'varchar', nullable:false})
+    @Column({type:'varchar',length: 15, nullable:false})
     estadopedido:string;
 
-    @Column({type:'float', nullable:false})
+    /*@Column({type:'float', nullable:false})
     total:number;
 
     @Column({nullable:true})
-    cantidad:number;
+    cantidad:number;*/
+
+    @Column({type:'varchar', length:200,  nullable:true})
+    observacion:string;
+
 
     @CreateDateColumn({type: 'timestamp',  name:'created_at'})
     createdAt: Date;

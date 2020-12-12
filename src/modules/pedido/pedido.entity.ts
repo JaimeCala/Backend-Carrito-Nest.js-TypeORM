@@ -16,6 +16,7 @@ export class Pedido extends BaseEntity{
     @Column({type:'varchar', length:250,nullable:true})
     direccion:string;
 
+    //-------------INHABILITAR CAMPO PRECIO SI NO VA ELIMINAR TODO LA DB----//
     @Column({type:'float', nullable:true})
     precio:number;
 
@@ -31,7 +32,7 @@ export class Pedido extends BaseEntity{
     @Column({type:'time', nullable:false})
     hora:Date;
 
-    @Column({type:'varchar', length:25,nullable:true})
+    @Column({type:'varchar',default: 'ESPERA', length:10,nullable:false})
     estado:string;
     
     @CreateDateColumn({type: 'timestamp',  name:'created_at'})

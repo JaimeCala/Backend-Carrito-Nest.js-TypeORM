@@ -22,6 +22,12 @@ import { RepartidorModule } from './modules/repartidor/repartidor.module';
 import { RolModule } from './modules/rol/rol.module';
 import { RolOperacionModule } from './modules/rol-operacion/rol-operacion.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { ProveedorModule } from './modules/proveedor/proveedor.module';
+import { CompraModule } from './modules/compra/compra.module';
+import { ProveedorService } from './service/proveedor/proveedor.service';
+import { CompraService } from './service/compra/compra.service';
+import { ProveedorController } from './controller/proveedor/proveedor.controller';
+import { CompraController } from './controller/compra/compra.controller';
 
 
 
@@ -48,9 +54,9 @@ import { AuthModule } from './modules/auth/auth.module';
             RepartidorModule, 
             RolModule, 
             RolOperacionModule, 
-            AuthModule],
-  controllers: [],
-  providers: [],
+            AuthModule, ProveedorModule, CompraModule],
+  controllers: [ProveedorController, CompraController],
+  providers: [ProveedorService, CompraService],
 })
 export class AppModule {
   static port: number | string;

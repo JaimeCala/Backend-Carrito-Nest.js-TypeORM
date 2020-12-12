@@ -35,7 +35,7 @@ export class ProductoService {
     return producto;
   }
 
-      async postCateProduUniImg(idcategoria: number): Promise<any> {
+  async postCateProduUniImg(idcategoria: number): Promise<any> {
 
     if (!idcategoria) {
       throw new BadRequestException('Necesita un id categoria');

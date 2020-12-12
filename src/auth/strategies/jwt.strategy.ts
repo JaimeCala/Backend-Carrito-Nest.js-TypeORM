@@ -35,7 +35,7 @@ export class JwtStrategy extends PassportStrategy(Strategy){
         });
 
         if(!userlogin){
-            throw new UnauthorizedException("papito qose wan dam, no estas permitido, anda cuida a tu bebe");
+            throw new UnauthorizedException("No estas permitido");
         }
         return payload;
 

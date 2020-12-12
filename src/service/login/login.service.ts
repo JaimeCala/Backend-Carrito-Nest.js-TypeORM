@@ -68,6 +68,7 @@ export class LoginService {
 
     async updateLogin(id: number, login: Login): Promise<any>{
 
+
         const updateLogin = await this.repository.update(id,login);
         return  updateLogin;
 
