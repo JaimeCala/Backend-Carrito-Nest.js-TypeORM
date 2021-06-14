@@ -10,10 +10,14 @@ export class Compra extends BaseEntity{
     idcompra: number;
 
     @Column({type: 'float', nullable:false})
-    precio_compra: number;
+    precio_compra_uni: number;
+
+    @Column({type: 'float', nullable:false})
+    precio_compra_total: number;
+
 
     @Column({type: 'varchar', nullable:false, length:20})
-    tipo_compobandte: string;
+    tipo_comprobante: string;
 
     @Column({type:'varchar', nullable:false,length:20})
     num_comprobante: string;
@@ -41,7 +45,7 @@ export class Compra extends BaseEntity{
     @JoinColumn({name:'idproveedor'})
     proveedor: Proveedor;
 
-    @ManyToOne(() => Producto, producto => producto.producto)
+    @ManyToOne(() => Producto, producto => producto.compra)
     @JoinColumn({name:'idproducto'})
     producto: Producto;
 

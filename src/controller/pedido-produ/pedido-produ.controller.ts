@@ -17,7 +17,7 @@ constructor(private service:PedidoProduService){}
     }
 
     @Get('/:id')
-    async getPedidoProducto(@Param('id', ParseIntPipe) id: number): Promise<PedidoProducto>{
+    async getPedidoProducto(@Param('id', ParseIntPipe) id: number): Promise<PedidoProducto[]>{
         const pedidoproducto = await this.service.getPedidoProducto( id);
         return pedidoproducto;
     }

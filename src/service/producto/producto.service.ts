@@ -14,7 +14,7 @@ export class ProductoService {
   async getProductos(): Promise<any> {
     const producto: Producto[] = await this.repository.find({
       //select:["nombre","paterno"],
-      relations: ['imgproductos','unidadproductos'],
+      relations: ['imgproductos','unidadproductos','categoria','compra'],
     });
     return producto;
   }
@@ -28,7 +28,7 @@ export class ProductoService {
 
     const producto: Producto = await this.repository.findOne({
       
-      relations: ['imgproductos','unidadproductos','categoria'],
+      relations: ['imgproductos','unidadproductos','categoria','compra','proveedor'],
       where:{idproducto},
     });
 

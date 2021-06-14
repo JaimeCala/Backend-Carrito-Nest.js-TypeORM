@@ -35,13 +35,20 @@ export class ImgProductoService {
    
   }
 
+   async updateImgProducto(id: number, imgnombre: string,imglink:string): Promise<any> {
+
+    
+     const imgProducto = new ImgProducto();
+
+
+    imgProducto.nombreimgprodu = imgnombre;
+    imgProducto.linkimgprodu = imglink;
+   
+    const updateImgproducto = await this.repository.update(id, imgProducto);
+    return updateImgproducto;
+  }
   /*async deleteUser(id: number): Promise<any> {
     const deleteUser = await this.repository.delete(id);
     return deleteUser;
-  }
-
-  async updateUser(id: number, user: User): Promise<any> {
-    const updateUser = await this.repository.update(id, user);
-    return updateUser;
   }*/
 }

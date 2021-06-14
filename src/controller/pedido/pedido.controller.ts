@@ -34,10 +34,17 @@ constructor(private service:PedidoService){}
         return pedidodelete;
 
     }
-    @Put('/:id')
+    /*@Put('/:id')
     async updatepedido(@Param('id', ParseIntPipe) id: number , @Body() pedido: Pedido): Promise<Pedido>{
         const updatepedido = await this.service.updatePedido(id, pedido);
         return updatepedido;
 
+    }*/
+    @Put('/:id')
+    async updatepedido(@Param('id', ParseIntPipe) id: number ): Promise<Pedido>{
+        const updatepedido = await this.service.updatePedido(id);
+        return updatepedido;
+
     }
+
 }

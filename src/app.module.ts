@@ -54,9 +54,11 @@ import { CompraController } from './controller/compra/compra.controller';
             RepartidorModule, 
             RolModule, 
             RolOperacionModule, 
-            AuthModule, ProveedorModule, CompraModule],
-  controllers: [ProveedorController, CompraController],
-  providers: [ProveedorService, CompraService],
+            AuthModule,
+            ProveedorModule,
+            CompraModule],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {
   static port: number | string;

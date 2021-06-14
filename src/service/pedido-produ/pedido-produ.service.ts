@@ -10,16 +10,21 @@ export class PedidoProduService {
 
         //show pedidoproductos
     async getPedidoProductos(): Promise<PedidoProducto[]>{
-        const pedidoproductos: PedidoProducto[] = await this.repository.find();
+        const pedidoproductos: PedidoProducto[] = await this.repository.find({
+            relations:['producto']
+        });
         return pedidoproductos;
     }
     //mostrando un solo pedidoproducto
-    async getPedidoProducto(id: number): Promise<PedidoProducto>{
+    async getPedidoProducto(id: number): Promise<PedidoProducto[]>{
         if(!id){
             throw new BadRequestException('Necesita un id');
         }
 
-        const pedidoproducto: PedidoProducto = await this.repository.findOne(id);
+        const pedidoproducto: PedidoProducto[] = await this.repository.find({
+            relations:['producto'],
+            where:{pedido:id }
+        });
 
         return pedidoproducto;
     }

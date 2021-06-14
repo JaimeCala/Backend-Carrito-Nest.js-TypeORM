@@ -27,8 +27,8 @@ export class Producto extends  BaseEntity{
     @Column()
     maximo:number;
 
-    @Column({type:'date'})
-    vencimiento:Date;
+    @Column({type:'varchar', nullable: true})
+    vencimiento:string;
 
     @Column({type:'float', nullable:false})
     precio:number;
@@ -66,7 +66,7 @@ export class Producto extends  BaseEntity{
     categoria: Categoria;
 
     @OneToMany(() => Compra, compra => compra.producto)
-    producto: Compra[];
+    compra: Compra[];
 
     
 

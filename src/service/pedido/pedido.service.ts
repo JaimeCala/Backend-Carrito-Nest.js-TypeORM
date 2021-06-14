@@ -1,8 +1,7 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { PedidoRepository } from 'src/modules/pedido/pedido.repository';
 import { Pedido } from 'src/modules/pedido/pedido.entity';
-import { getManager, getRepository } from 'typeorm';
-import { Cliente } from 'src/modules/cliente/cliente.entity';
+
 
 @Injectable()
 export class PedidoService {
@@ -55,10 +54,22 @@ export class PedidoService {
         
     } 
 
-    async updatePedido(id: number, pedido: Pedido): Promise<any>{
+    async updatePedido(id: number): Promise<any>{
 
-        const updatePedido = await this.repository.update(id,pedido);
-        return  updatePedido;
+        const  pedido = new Pedido();
+        const estadoAbierto = 'ABIERTO'
+        const resultEstado = await this.repository.findOne(id,{where:{estado:estadoAbierto}});
+
+        if(resultEstado){
+            return;
+        }else{
+            pedido.estado = estadoAbierto;
+  
+            const updatePedido = await this.repository.update(id,pedido);
+            return  updatePedido;
+        }
+        
+        
 
     }
 }

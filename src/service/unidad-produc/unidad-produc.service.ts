@@ -2,6 +2,7 @@ import { Injectable, BadRequestException, ConflictException } from '@nestjs/comm
 import { UnidadProducRepository } from 'src/modules/unidad-produc/unidad-produc.repository';
 import { UnidadProducto } from 'src/modules/unidad-produc/unidad-produc.entity';
 import { getRepository } from 'typeorm';
+import { Producto } from 'src/modules/producto/producto.entity';
 
 @Injectable()
 export class UnidadProducService {
@@ -26,8 +27,17 @@ export class UnidadProducService {
 
     async createUnidadProducto(unidadproducto: UnidadProducto): Promise<any>{
 
+        
+
+    
+        const producto = await getRepository(Producto)
+        .createQueryBuilder('producto')
+        .select('MAX(producto.idproducto)', 'max');
+        const maximo = await producto.getRawOne();
+        //asignando id de la producto
+
         unidadproducto.valor = unidadproducto.valor;
-        unidadproducto.producto = unidadproducto.producto;
+        unidadproducto.producto = maximo.max;
         return await this.repository.save(unidadproducto);
 
     }
