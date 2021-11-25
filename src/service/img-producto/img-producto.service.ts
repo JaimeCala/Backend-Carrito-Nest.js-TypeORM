@@ -16,20 +16,21 @@ export class ImgProductoService {
 
   }
 
-  async createImgProducto(imgnombre: string, imglink: string, ): Promise<ImgProducto> {
+  async createImgProducto( producto: ImgProducto,imgnombre: string, imglink: string, ): Promise<ImgProducto> {
     
     const imgproducto = new ImgProducto();
 
     
-    const producto = await getRepository(Producto)
+   /* const producto = await getRepository(Producto)
       .createQueryBuilder('producto')
       .select('MAX(producto.idproducto)', 'max');
-    const maximo = await producto.getRawOne();
+    const maximo = await producto.getRawOne();*/
     //asignando id de la producto
+    const productoid = producto;
 
     imgproducto.nombreimgprodu = imgnombre;
     imgproducto.linkimgprodu = imglink;
-    imgproducto.producto = maximo.max;
+    imgproducto.producto = productoid.producto;
     const savedImgcate = await this.repository.save(imgproducto);
     return savedImgcate;
    

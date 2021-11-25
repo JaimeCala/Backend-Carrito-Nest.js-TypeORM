@@ -68,7 +68,7 @@ export class User extends BaseEntity{
     @OneToOne(() => Cliente, cliente => cliente.user)
     cliente: Cliente;
 
-    @OneToOne(() => Repartidor, repartidor => repartidor.user)
+    @OneToMany(() => Repartidor, repartidor => repartidor.user)
     repartidor: Repartidor;
 
     

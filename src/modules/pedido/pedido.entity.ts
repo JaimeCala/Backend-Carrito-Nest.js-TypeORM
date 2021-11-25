@@ -51,7 +51,7 @@ export class Pedido extends BaseEntity{
     @JoinColumn({name:'idcliente'})
     cliente: Cliente;
 
-    @OneToOne(() => Repartidor, repartidor => repartidor.pedidos)
+    @OneToMany(() => Repartidor, repartidor => repartidor.pedidos)
    // @JoinColumn({name:'idrepartidor'})
     repartidor: Repartidor;
     

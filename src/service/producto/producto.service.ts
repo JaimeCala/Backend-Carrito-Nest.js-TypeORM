@@ -5,6 +5,12 @@ import { getManager } from 'typeorm';
 import { CategoriaService } from '../categoria/categoria.service';
 import { Categoria } from 'src/modules/categoria/categoria.entity';
 import { ImgProducto } from 'src/modules/img-producto/img-producto.entity';
+import { PedidoProducto } from '../../modules/pedido-produ/pedido-produ.entity';
+import * as moment from 'moment';
+import { Moment } from 'moment';
+const momento = moment;
+
+//const myMoment: moment.Moment = moment("someDate");
 
 @Injectable()
 export class ProductoService {
@@ -17,6 +23,49 @@ export class ProductoService {
       relations: ['imgproductos','unidadproductos','categoria','compra'],
     });
     return producto;
+  }
+  async getProductosVencimiento(): Promise<any> {
+   /* const producto: Producto[] = await this.repository.find({
+      //select:["nombre","paterno"],
+      //relations: ['imgproductos','unidadproductos','categoria','compra'],
+     
+    return producto;
+    
+          });*/
+        const  fechahoy = new Date();
+           
+          // const res = myMoment.add('2','days')
+         // const res= moment(fechahoy).add(2,'days')
+         const suma= moment(new Date(fechahoy)).add(10, 'days').format('YYYY-MM-DD');
+       
+          //fechahoy.getDay
+         // console.log("holaaaa",fechahoy-fechaantes);
+         
+          //const mo= myMoment.add('2','days')
+
+         /*  const date1 = new Date();
+          const  date2 = new Date("2021-11-30");      
+          const date1utc = Date.UTC(date1.getFullYear(), date1.getMonth(), date1.getDate());
+          const date2utc = Date.UTC(date2.getFullYear(), date2.getMonth(), date2.getDate());
+          const  day = 1000*60*60*24;*/
+
+         // const result = (date2utc - date1utc)/day;
+         //const result = date1. +10;
+      
+
+        //console.log(suma)
+          
+
+
+ const produvence= await getManager()
+                                  .createQueryBuilder(Producto, "producto")
+                                  .addSelect('producto.vencimiento', 'vencimiento')
+                              
+                                  //.where(fechahoy.getDay-Producto.vencimiento = 30)
+                                  .where('producto.vencimiento <=:suma',{suma: suma})
+                                  .getCount()
+
+            return produvence
   }
 
   //Me entrega sola una producto especifica
@@ -87,5 +136,42 @@ export class ProductoService {
   async updateProducto(id: number, producto: Producto): Promise<any> {
     const updateProducto = await this.repository.update(id, producto);
     return updateProducto;
+  }
+
+   async updateProductoStock( pedidoProducto: PedidoProducto): Promise<any> {
+    /* Resta la cantidad de productos segun se vaya confirmando las ventas en el admin*/
+   // console.log("desde backend",pedidoProducto);
+    
+    const  producto = new Producto();
+    const productos= '';
+    let contador =0;
+    let id;
+     for(const indice in pedidoProducto)
+         {
+            
+           
+            id = producto.idproducto = pedidoProducto[indice].idproducto ;
+            
+            const resultStock =  await this.repository.find({ idproducto: id, });
+            const minimoprodu = resultStock[0].minimo;
+            
+            producto.stock = resultStock[0].stock-pedidoProducto[indice].cantidad;
+            const comparacion = resultStock[0].stock-pedidoProducto[indice].cantidad;
+
+            if(comparacion == minimoprodu)
+            {
+                contador = contador + 1; 
+            }
+            
+            
+            await  this.repository.update(id, producto);
+         }
+         return contador;
+
+
+
+
+
+
   }
 }

@@ -28,6 +28,9 @@ import { ProveedorService } from './service/proveedor/proveedor.service';
 import { CompraService } from './service/compra/compra.service';
 import { ProveedorController } from './controller/proveedor/proveedor.controller';
 import { CompraController } from './controller/compra/compra.controller';
+//import { MomentDateModule } from '@angular/material-moment-adapter';
+
+
 
 
 
@@ -56,7 +59,9 @@ import { CompraController } from './controller/compra/compra.controller';
             RolOperacionModule, 
             AuthModule,
             ProveedorModule,
-            CompraModule],
+            CompraModule,
+            //MomentDateModule
+          ],
   controllers: [],
   providers: [],
 })

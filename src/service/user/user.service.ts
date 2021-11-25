@@ -29,14 +29,14 @@ export class UserService {
 
   }
 
-  async getUser(id: number): Promise<User> {
+  async getUser(id: number): Promise<User[]> {
     if (!id) {
       throw new BadRequestException('Necesita un id');
     }
 
     const user: User = await this.repository.findOne(id);
 
-    return user;
+    return [user];
   }
  
 

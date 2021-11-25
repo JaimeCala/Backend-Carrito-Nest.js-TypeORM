@@ -6,6 +6,7 @@ import { diskStorage } from 'multer';
 import { extname } from 'path';
 import { filetipo } from '../img-categoria/interface.imgcategoria';
 import { getany } from '../img-categoria/interface.getcategoria';
+import { Producto } from '../../modules/producto/producto.entity';
 
 @Controller('img-producto')
 export class ImgProductoController {
@@ -27,9 +28,9 @@ export class ImgProductoController {
     }
     
     ))
-    async  uploadFiles(@UploadedFile() file: filetipo): Promise<any>{
+    async  uploadFiles( @Body() producto: ImgProducto  , @UploadedFile() file: filetipo): Promise<any>{
         
-    const guardarImg = await this.imgProductoService.createImgProducto(`${file.filename }`, `${file.path }`);
+    const guardarImg = await this.imgProductoService.createImgProducto( producto ,`${file.filename }`, `${file.path }`);
     return guardarImg;
             
     }

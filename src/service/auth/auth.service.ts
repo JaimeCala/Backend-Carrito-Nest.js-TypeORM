@@ -34,7 +34,7 @@ export class AuthService {
         //console.log("---del login", userLogin);
         if(!userLogin)
         {
-            throw new NotFoundException('Tu usuario es incorrecto o no existe');
+            throw new NotFoundException('Tu usuario y contraseña es incorrecto o no existe');
         }
 
         //compara password

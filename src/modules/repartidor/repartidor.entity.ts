@@ -1,4 +1,4 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, UpdateDateColumn, CreateDateColumn, Column, OneToOne, JoinColumn, OneToMany } from "typeorm";
+import { BaseEntity, Entity, PrimaryGeneratedColumn, UpdateDateColumn, CreateDateColumn, Column, OneToOne, JoinColumn, OneToMany, ManyToOne } from "typeorm";
 import { User } from "../user/user.entity";
 import { Pedido } from "../pedido/pedido.entity";
 
@@ -24,11 +24,11 @@ export class Repartidor extends BaseEntity{
     @UpdateDateColumn({type: 'timestamp',  name:'updated_at'})
     updatedAt: Date;
 
-    @OneToOne(() => User , user => user.repartidor)
+    @ManyToOne(() => User , user => user.repartidor)
     @JoinColumn({name:'idusuario'})
     user: User;
 
-    @OneToOne(() => Pedido, pedido => pedido.repartidor)
+    @ManyToOne(() => Pedido, pedido => pedido.repartidor)
     @JoinColumn({name:'idpedido'})
     pedidos: Pedido[];
 

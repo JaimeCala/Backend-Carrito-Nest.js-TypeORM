@@ -30,14 +30,14 @@ export class UnidadProducService {
         
 
     
-        const producto = await getRepository(Producto)
+      /*  const producto = await getRepository(Producto)
         .createQueryBuilder('producto')
         .select('MAX(producto.idproducto)', 'max');
-        const maximo = await producto.getRawOne();
+        const maximo = await producto.getRawOne();*/
         //asignando id de la producto
 
         unidadproducto.valor = unidadproducto.valor;
-        unidadproducto.producto = maximo.max;
+        unidadproducto.producto = unidadproducto.producto;
         return await this.repository.save(unidadproducto);
 
     }

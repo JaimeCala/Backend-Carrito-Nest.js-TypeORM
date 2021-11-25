@@ -24,6 +24,12 @@ constructor(private service:ClienteService){}
         return cliente;
     }
 
+    @Get('getclienteUsuario/:id')
+    async getClienteUsuario(@Param('id', ParseIntPipe) id: number): Promise<any>{
+        const cliente = await this.service.getClienteUsuario( id);
+        return cliente;
+    }
+
     @Post('/create')
     async createCliente(@Body() cliente: Cliente):Promise<Cliente>{
         const createdCliente = await this.service.createCliente(cliente);

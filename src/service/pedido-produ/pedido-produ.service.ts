@@ -2,7 +2,11 @@ import { Injectable, BadRequestException } from '@nestjs/common';
 import { PedidoProduRepository } from 'src/modules/pedido-produ/pedido-produ.repository';
 import { PedidoProducto } from 'src/modules/pedido-produ/pedido-produ.entity';
 import { Pedido } from 'src/modules/pedido/pedido.entity';
-import { getRepository } from 'typeorm';
+import { getManager, getRepository } from 'typeorm';
+import { Producto } from '../../modules/producto/producto.entity';
+import { Cliente } from '../../modules/cliente/cliente.entity';
+import { User } from '../../modules/user/user.entity';
+import { Venta } from '../../modules/venta/venta.entity';
 
 @Injectable()
 export class PedidoProduService {
@@ -11,45 +15,109 @@ export class PedidoProduService {
         //show pedidoproductos
     async getPedidoProductos(): Promise<PedidoProducto[]>{
         const pedidoproductos: PedidoProducto[] = await this.repository.find({
-            relations:['producto']
+            relations:['producto','pedido']
         });
         return pedidoproductos;
     }
+    async getPedidoProductosMasvendidos(): Promise<PedidoProducto[]>{
+        /*const pedidoproductos: PedidoProducto[] = await this.repository.find({
+            relations:['producto','pedido']
+        });
+        return pedidoproductos;*/
+        const ventas= await getManager()
+                            .createQueryBuilder(PedidoProducto, "pedidoproducto")
+                           
+                            .select("SUM(pedidoproducto.cantidad)", "sumacantidad")
+                           
+                            .addSelect('producto.idproducto','idproducto')
+                            .addSelect('producto.nombre','nombre')
+                            .orderBy("sumacantidad", "DESC")
+                            
+                           
+                            .groupBy("pedidoproducto.producto") 
+                            .addGroupBy("producto.nombre")  
+                            .addGroupBy("producto.idproducto")  
+                            
+                            .innerJoin(Pedido,"pedido","pedido.idpedido = pedidoproducto.idpedido")
+                            .innerJoin(Venta,"venta","venta.idpedido=pedido.idpedido")
+                            .innerJoin(Producto,"producto","producto.idproducto = pedidoproducto.idproducto")
+                           
+                            .where('venta.estadopedido= :estadopedido',{estadopedido:'ENVIADO'})
+                               
+                            .getRawMany()
+
+      return ventas
+    }
+
+
     //mostrando un solo pedidoproducto
-    async getPedidoProducto(id: number): Promise<PedidoProducto[]>{
-        if(!id){
+    async getPedidoProducto(idpedido: number): Promise<any>{
+       /* if(!id){
             throw new BadRequestException('Necesita un id');
         }
 
         const pedidoproducto: PedidoProducto[] = await this.repository.find({
-            relations:['producto'],
-            where:{pedido:id }
+            relations:['producto','pedido'],
+            where:{idpedidoproducto:id }
         });
 
-        return pedidoproducto;
+        return pedidoproducto;*/
+
+            if (!idpedido) {
+                throw new BadRequestException('Necesita un id categoria');
+            }
+            const pedidoproduct= await getManager()
+                                    .createQueryBuilder(PedidoProducto, "pedidoproducto")
+                                    .addSelect('pedido.comentario', 'comentariopedido')
+                                    .addSelect('pedido.idcliente', 'idcliente')
+                                    .addSelect('producto.nombre','productonombre')
+                                    .addSelect('pedidoproducto.idpedidoproducto','idpedidoproducto')
+                                    .addSelect('pedidoproducto.cantidad','cantidad')
+                                    .addSelect('pedidoproducto.idpedido','idpedido')
+                                    .addSelect('pedidoproducto.idproducto','idproducto')
+                                    .addSelect('pedidoproducto.precio_uni','precio_uni')
+                                    .addSelect('pedidoproducto.precio_total','precio_total')
+                                    //.addSelect('user.nombre','nombreuser')
+                                    .innerJoin(Pedido,"pedido","pedido.idpedido = pedidoproducto.idpedido")
+                                    .innerJoin(Producto,"producto","producto.idproducto=pedidoproducto.idproducto")
+                                    
+                                    //.innerJoin(Cliente,"cliente","cliente.idcliente = pedido.idcliente")
+                                    //.innerJoin(User,"user","user.idusuario = cliente.idusuario")
+                                    .where('pedido.idpedido= :idpedido',{idpedido:idpedido})
+                                    .getRawMany()
+
+            return pedidoproduct
     }
+
+
+    
   
 
-    async createPedidoProducto(pedidoproducto: PedidoProducto): Promise<any>{
+    async createPedidoProducto(pedido:Pedido, pedidoproducto: PedidoProducto): Promise<any>{
 
         //insertando el usuario que se registro ultimo
-        const idpedido = await getRepository(Pedido).createQueryBuilder("pedido").select("MAX(pedido.idpedido)", "max");
+        /*const idpedido = await getRepository(Pedido).createQueryBuilder("pedido").select("MAX(pedido.idpedido)", "max");
         const maximo = await idpedido.getRawOne();
-        const idpedidos = maximo.max;
+        const idpedidos = maximo.max;*/
+        //const {pedido} = new PedidoProducto();
        
-        console.log("-------------esto es el id pedido de pedido------"+idpedidos);
-        console.log("-------------esto es el id pedido de pedido------"+maximo.max);
+       
       
          for(const indice in pedidoproducto)
          {
             pedidoproducto.cantidad= pedidoproducto[indice].cantidad;
             pedidoproducto.producto = pedidoproducto[indice].producto;
             //pedidoproducto.pedido = pedidoproducto[indice].pedido;
-            pedidoproducto.pedido= pedidoproducto[indice].pedido=maximo.max;//se suma +1 porque la consulta se realiza despues de la insercion
+            pedidoproducto.pedido= pedidoproducto[indice].pedido=pedido;//se suma +1 porque la consulta se realiza despues de la insercion
             //pedidoproducto.pedido= pedidoproducto[indice].pedido=maximo.max;
             //pedidoproducto.pedido = maximo.max;
-            console.log("-------------esto es el id pedido de pedido------"+idpedidos);
-            console.log("-------------esto es el id pedido de pedido------"+maximo.max);
+            pedidoproducto.precio_uni = pedidoproducto[indice].precio_uni;
+            pedidoproducto.precio_total = pedidoproducto[indice].precio_total;
+            /* console.log("---------------------cantidad----------"+pedidoproducto.cantidad);
+             console.log("---------------------producto----------"+pedidoproducto.producto);
+             console.log("---------------------pedido----------"+pedidoproducto.pedido);
+             console.log("---------------------precio_uni----------"+pedidoproducto.precio_uni);
+             console.log("---------------------precio_total----------"+pedidoproducto.precio_total);*/
          
              await this.repository.save(pedidoproducto);
          }

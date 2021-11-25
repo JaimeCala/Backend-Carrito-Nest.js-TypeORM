@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Delete, Put, Param, Body, ParseIntPipe, NotFoundException } from '@nestjs/common';
-import { CategoriaService } from 'src/service/categoria/categoria.service';
-import { Categoria } from 'src/modules/categoria/categoria.entity';
+import { Categoria } from '../../modules/categoria/categoria.entity';
+import { CategoriaService } from '../../service/categoria/categoria.service';
+
 
 @Controller('categoria')
 export class CategoriaController {
@@ -34,9 +35,10 @@ export class CategoriaController {
     //crea categoria
 
     @Post('/createCategoria')
-    async createCategoria(@Body() categoria: Categoria):Promise<Categoria>{
+    async createCategoria(@Body() categoria: Categoria ):Promise<Categoria>{
         const createdCategoria = await this.service.createCategoria(categoria);
         return createdCategoria;
+       
     }
 
     @Delete('/:idcategoria')

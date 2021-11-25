@@ -20,6 +20,11 @@ constructor(private service:PedidoService){}
         const pedido = await this.service.getPedido( id);
         return pedido;
     }
+    @Get('pedidorealizado/:idusuario')
+    async getPedidoRealizado(@Param('idusuario', ParseIntPipe) idusuario: number): Promise<Pedido[]>{
+        const pedido = await this.service.getPedidoRealizados( idusuario);
+        return pedido;
+    }
 
     @Post('/create')
     async createPedido(@Body() pedido: Pedido):Promise<Pedido>{
@@ -43,6 +48,13 @@ constructor(private service:PedidoService){}
     @Put('/:id')
     async updatepedido(@Param('id', ParseIntPipe) id: number ): Promise<Pedido>{
         const updatepedido = await this.service.updatePedido(id);
+        return updatepedido;
+
+    }
+
+    @Put('enviado/:id')
+    async updatepedidoEnviado(@Param('id', ParseIntPipe) id: number ): Promise<Pedido>{
+        const updatepedido = await this.service.updatePedidoEnviado(id);
         return updatepedido;
 
     }

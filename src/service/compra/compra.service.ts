@@ -16,9 +16,17 @@ export class CompraService {
     return compra;
     }
 
+    async getComprasReport(): Promise<any> {
+    const compra: Compra[] = await this.repository.find({
+      //select:["nombre","paterno"],
+      //relations: ['proveedor'],
+    });
+    return compra;
+    }
+
     //Me entrega sola una compra especifica
 
-    async getCompra(idcompra: number): Promise<Compra> {
+    async getCompraId(idcompra: number): Promise<Compra> {
     if (!idcompra) {
       throw new BadRequestException('Necesita un id');
     }
@@ -30,6 +38,20 @@ export class CompraService {
     });
 
     return compra;
+    }
+
+    async getCompraReportId(idcompra: number): Promise<Compra[]> {
+    if (!idcompra) {
+      throw new BadRequestException('Necesita un id');
+    }
+
+    const compra: Compra = await this.repository.findOne({
+      
+      relations: ['proveedor','producto'],
+      where:{idcompra},
+    });
+
+    return [compra];
     }
 
     /*async postCompraes(idcategoria: number): Promise<any> {
@@ -56,10 +78,10 @@ export class CompraService {
     async createCompra(compra: Compra): Promise<Compra> {
     
     //---obteniendo el ultimo id registrado en producto---//
-    const producto = await getRepository(Producto)
+  /*  const producto = await getRepository(Producto)
       .createQueryBuilder('producto')
       .select('MAX(producto.idproducto)', 'max');
-    const maximo = await producto.getRawOne();
+    const maximo = await producto.getRawOne();*/
     
     //----------insertando a compras despues de obtener el idproducto---//
     compra.tipo_comprobante = compra.tipo_comprobante;
@@ -70,7 +92,7 @@ export class CompraService {
     compra.hora = compra.hora;
     compra.precio_compra_uni = compra.precio_compra_uni;
     compra.precio_compra_total = compra.precio_compra_total;
-    compra.producto = maximo.max;
+    compra.producto =compra.producto;
     compra.proveedor = compra.proveedor;
    
 

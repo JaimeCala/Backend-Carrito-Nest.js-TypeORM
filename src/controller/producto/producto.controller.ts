@@ -1,6 +1,7 @@
 import { Controller, Post, Delete, Put, Param, NotFoundException, ParseIntPipe, Body, Get } from '@nestjs/common';
 import { Producto } from 'src/modules/producto/producto.entity';
 import { ProductoService } from 'src/service/producto/producto.service';
+import { PedidoProducto } from '../../modules/pedido-produ/pedido-produ.entity';
 
 @Controller('producto')
 export class ProductoController {
@@ -14,8 +15,13 @@ export class ProductoController {
         return productos;
         
     }
+     @Get('/productosVencimiento')
+    async getProductosVencimiento( ): Promise<Producto[]>{
+        const productos = await this.service.getProductosVencimiento();
+        return productos;
+        
+    }
 
-   
     
 
     @Get('/:idproducto')
@@ -54,6 +60,13 @@ export class ProductoController {
     @Put('/:idproducto')
     async updateproducto(@Param('idproducto', ParseIntPipe) idproducto: number , @Body() producto: Producto): Promise<Producto>{
         const updateproducto = await this.service.updateProducto(idproducto, producto);
+        return updateproducto;
+    }
+    @Post('/restaStock')
+    async updateproductoStock( @Body() pedidoProducto: PedidoProducto): Promise<Producto>{
+
+        
+        const updateproducto = await this.service.updateProductoStock( pedidoProducto);
         return updateproducto;
     }
 

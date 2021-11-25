@@ -7,6 +7,7 @@ import { extname } from 'path';
 import { ImgCategoria } from 'src/modules/img-categoria/img-categoria.entity';
 import { filetipo } from './interface.imgcategoria';
 import { getany } from './interface.getcategoria';
+import { Categoria } from '../../modules/categoria/categoria.entity';
 
 
 @Controller('img-categoria')
@@ -17,12 +18,13 @@ export class ImgCategoriaController {
     
 
     @Post('/uploadImg')
-    @UseInterceptors(FileInterceptor('file',
+    @UseInterceptors(   FileInterceptor('file',
     {
         storage: diskStorage({
             destination: './public/uploads',
 
             filename:(req, file, cb)=> {
+                            
                 const randomName = Array(32).fill(null).map(()=> (Math.round(Math.random()*16)).toString(16)).join('')
                 return cb(null, `${randomName}${extname(file.originalname)}`)
             }
@@ -30,9 +32,9 @@ export class ImgCategoriaController {
     }
     
     ))
-    async  uploadFiles(@UploadedFile() file: filetipo): Promise<any>{
+    async  uploadFiles( @Body()  categoria: ImgCategoria ,  @UploadedFile() file: filetipo): Promise<any>{
         
-    const guardarImg = await this.imgCategoriaService.createImgCategoria(`${file.filename }`, `${file.path }`);
+    const guardarImg = await this.imgCategoriaService.createImgCategoria(  categoria , `${file.filename }`, `${file.path }` );
     return guardarImg;
             
     }

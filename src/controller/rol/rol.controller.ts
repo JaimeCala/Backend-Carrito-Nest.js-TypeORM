@@ -11,6 +11,16 @@ export class RolController {
         const roles = await this.service.getRoles();
         return roles;
     }
+    @Get('/rolesUsers')
+    async getRolesUsuarios(): Promise<Rol[]>{
+        const roles = await this.service.getRolesUsuarios();
+        return roles;
+    }
+    @Get('/rolesRepartidor')
+    async getRolesRepartidor(): Promise<Rol[]>{
+        const roles = await this.service.getRolesRepartidor();
+        return roles;
+    }
 
     @Get('/:id')
     async getRol(@Param('id', ParseIntPipe) id: number): Promise<Rol>{

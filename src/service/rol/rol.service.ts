@@ -9,8 +9,56 @@ export class RolService {
     constructor(private repository:RolRepository){}
 
     async getRoles(): Promise<any>{
-        const roles: Rol[] = await this.repository.find();
+        const roles: Rol[] = await this.repository.find({
+            
+        });
         return roles;
+
+    
+
+    }
+    async getRolesUsuarios(): Promise<any>{
+       /* const roles: Rol[] = await this.repository.find({
+            relations: ['user'],
+            where: {nombre: 'VENDEDOR'}
+        });
+        return roles;*/
+        const rolesVendedor= await getManager()
+                            .createQueryBuilder(Rol, "rol")
+                            .addSelect('user.idusuario', 'idusuario')
+                            .addSelect('user.nombre','nombre')
+                            .addSelect('user.paterno','paterno')
+                            
+                            .innerJoin(User,"user","rol.idrol = user.rol")
+                            
+                            .where('rol.nombre= :nombre',{nombre:'VENDEDOR'})
+                            .getRawMany()
+
+      return rolesVendedor
+
+    
+
+    }
+    async getRolesRepartidor(): Promise<any>{
+      /*  const roles: Rol[] = await this.repository.find({
+            relations: ['user'],
+            where: {nombre: 'REPARTIDOR'}
+        });
+        return roles;*/
+
+       
+    const rolesRepartidor= await getManager()
+                            .createQueryBuilder(Rol, "rol")
+                            .addSelect('user.idusuario', 'idusuario')
+                            .addSelect('user.nombre','nombre')
+                            .addSelect('user.paterno','paterno')
+                            
+                            .innerJoin(User,"user","rol.idrol = user.rol")
+                            
+                            .where('rol.nombre= :nombre',{nombre:'REPARTIDOR'})
+                            .getRawMany()
+
+      return rolesRepartidor
 
     
 

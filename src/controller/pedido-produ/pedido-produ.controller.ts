@@ -15,16 +15,22 @@ constructor(private service:PedidoProduService){}
         return pedidoproductos;
         
     }
+    @Get('/pedidoproductosmasvendidos')
+    async getPedidoProductosMasvendido( ): Promise<PedidoProducto[]>{
+        const pedidoproductos = await this.service.getPedidoProductosMasvendidos();
+        return pedidoproductos;
+        
+    }
 
     @Get('/:id')
-    async getPedidoProducto(@Param('id', ParseIntPipe) id: number): Promise<PedidoProducto[]>{
+    async getPedidoProducto(@Param('id', ParseIntPipe) id: number): Promise<any>{
         const pedidoproducto = await this.service.getPedidoProducto( id);
         return pedidoproducto;
     }
 
-    @Post('/create')
-    async createPedidoProducto(@Body() pedidoproducto: PedidoProducto):Promise<PedidoProducto>{
-        const createdPedidoProducto = await this.service.createPedidoProducto(pedidoproducto);
+    @Post('/create/:pedido')
+    async createPedidoProducto(@Param('pedido', ParseIntPipe) pedido: Pedido,  @Body() pedidoproducto: PedidoProducto):Promise<PedidoProducto>{
+        const createdPedidoProducto = await this.service.createPedidoProducto(pedido, pedidoproducto);
         return createdPedidoProducto;
     }
 

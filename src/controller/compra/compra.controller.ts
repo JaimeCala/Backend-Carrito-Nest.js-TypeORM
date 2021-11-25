@@ -13,10 +13,22 @@ export class CompraController {
         return compras;
         
     }
-
+    @Get('/comprasReporte')
+        async getComprasReport( ): Promise<Compra[]>{
+            const compras = await this.service.getComprasReport();
+            return compras;
+            
+        }
     @Get('/:idcompra')
-    async getCompra(@Param('idcompra', ParseIntPipe) idcompra: number): Promise<Compra>{
-        const compra = await this.service.getCompra( idcompra);
+    async getCompraId(@Param('idcompra', ParseIntPipe) idcompra: number): Promise<Compra>{
+        const compra = await this.service.getCompraId( idcompra);
+        return compra;
+    }
+    
+
+    @Get('report/:idcompraReport')
+    async getCompraReportId(@Param('idcompraReport', ParseIntPipe) idcompra: number): Promise<Compra[]>{
+        const compra = await this.service.getCompraReportId( idcompra);
         return compra;
     }
 

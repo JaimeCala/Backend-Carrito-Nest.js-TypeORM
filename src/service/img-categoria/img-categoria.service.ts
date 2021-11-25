@@ -16,19 +16,20 @@ export class ImgCategoriaService {
 
   }
 
-  async createImgCategoria(imgnombre: string, imglink: string, ): Promise<ImgCategoria> {
+  async createImgCategoria(categoria: ImgCategoria, imgnombre: string, imglink: string, ): Promise<ImgCategoria> {
     
     const imgcategoria = new ImgCategoria();
 
-    const categoria = await getRepository(Categoria)
+    /*const categoria = await getRepository(Categoria)
       .createQueryBuilder('categoria')
       .select('MAX(categoria.idcategoria)', 'max');
-    const maximo = await categoria.getRawOne();
+    const maximo = await categoria.getRawOne();*/
     //asignando id de la categoria
+    const categoriaid = categoria;
 
     imgcategoria.nombreimgcategoria = imgnombre;
     imgcategoria.linkimgcategoria = imglink;
-    imgcategoria.categoria = maximo.max;
+    imgcategoria.categoria = categoriaid.categoria;
     const savedImgcate = await this.repository.save(imgcategoria);
     return savedImgcate;
    

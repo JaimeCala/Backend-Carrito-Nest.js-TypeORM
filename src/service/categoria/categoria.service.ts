@@ -1,10 +1,10 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
-import { CategoriaRepository } from 'src/modules/categoria/categoria.repository';
-import { Categoria } from 'src/modules/categoria/categoria.entity';
 import { getManager } from 'typeorm';
-import { Producto } from 'src/modules/producto/producto.entity';
-import { ImgProducto } from 'src/modules/img-producto/img-producto.entity';
-import { UnidadProducto } from 'src/modules/unidad-produc/unidad-produc.entity';
+import { Categoria } from '../../modules/categoria/categoria.entity';
+import { CategoriaRepository } from '../../modules/categoria/categoria.repository';
+import { ImgProducto } from '../../modules/img-producto/img-producto.entity';
+import { Producto } from '../../modules/producto/producto.entity';
+import { UnidadProducto } from '../../modules/unidad-produc/unidad-produc.entity';
 
 @Injectable()
 export class CategoriaService {
@@ -77,7 +77,7 @@ export class CategoriaService {
 
   //crea una nueva categoria
 
-  async createCategoria(categoria: Categoria): Promise<Categoria> {
+  async createCategoria(categoria: Categoria ): Promise<Categoria> {
   
 
     const savedCategoria: Categoria = await this.repository.save(categoria);

@@ -3,5 +3,6 @@ export interface filetipo  {
     originalname: string;
     filename: string;
     path: string;
+    categoria: any;
     
 }

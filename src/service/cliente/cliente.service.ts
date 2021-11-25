@@ -1,6 +1,8 @@
 import { Injectable, ConflictException, BadRequestException } from '@nestjs/common';
 import { ClienteRepository } from 'src/modules/cliente/cliente.repository';
 import { Cliente } from 'src/modules/cliente/cliente.entity';
+import { getManager } from 'typeorm';
+import { User } from '../../modules/user/user.entity';
 
 @Injectable()
 export class ClienteService {
@@ -28,6 +30,33 @@ export class ClienteService {
 
         return cliente;
     }
+
+    async getClienteUsuario(idcliente: number): Promise<any>{
+         if (!idcliente) {
+                throw new BadRequestException('Necesita un id cliente');
+            }
+            const pedidoproduct= await getManager()
+                                    .createQueryBuilder(Cliente, "cliente")
+                                    .addSelect('user.idusuario','idusuario')
+                                    .addSelect('user.ci','ci')
+                                    .addSelect('user.expedido','expedido')
+                                    .addSelect('user.nombre','nombre')
+                                    .addSelect('user.paterno','paterno')
+                                    .addSelect('user.materno','materno')
+                                    .addSelect('user.celular','celular')
+                                    .addSelect('user.direccion','direccion')
+                                    
+                                    .innerJoin(User,"user","user.idusuario = cliente.idusuario")
+                                    .where('cliente.idcliente= :idcliente',{idcliente:idcliente})
+                                    .getRawMany()
+
+            return pedidoproduct
+        
+
+        
+    }
+
+    
   
 
     async createCliente(cliente: Cliente): Promise<any>{

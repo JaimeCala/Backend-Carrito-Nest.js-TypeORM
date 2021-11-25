@@ -47,11 +47,8 @@ export class LoginService {
             throw new ConflictException('Username ya existe');
         }
 
-        //insertando el usuario que se registro ultimo
-        const user = await getRepository(User).createQueryBuilder("user").select("MAX(user.idusuario)", "max");
-        const maximo = await user.getRawOne();
-        //asignando rol
-        login.user = maximo.max;
+        
+        login.user = login.user;
         //encriptando password y save
         const salt = await genSalt(10);
         login.password= await hash(login.password, salt);
