@@ -1,18 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { ImgCategoriaRepository } from 'src/modules/img-categoria/img-categoria.repository';
 import { ImgCategoria } from 'src/modules/img-categoria/img-categoria.entity';
-import { Categoria } from 'src/modules/categoria/categoria.entity';
-import { getRepository } from 'typeorm';
+
 
 @Injectable()
 export class ImgCategoriaService {
   constructor(private repository: ImgCategoriaRepository) {}
 
-   async getImgCates(): Promise<ImgCategoria[]> {
-   
+  async getImgCates(): Promise<ImgCategoria[]> {
+
     const imgCate:ImgCategoria[] = await this.repository.find();
     return imgCate;
-   
+  
 
   }
 

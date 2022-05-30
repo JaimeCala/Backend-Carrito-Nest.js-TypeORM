@@ -46,6 +46,12 @@ export class Producto extends  BaseEntity{
     @Column({type:'date',nullable:true})
     fecha:Date;
 
+    @Column({type: 'varchar', default: 'NO', length:3, nullable:true})
+    oferta: string;
+    
+    @Column({type: 'float' , default: 0.0 , nullable:true})
+    porcentaje: number;
+
     @CreateDateColumn({type: 'timestamp',  name:'created_at'})
     createdAt: Date;
 

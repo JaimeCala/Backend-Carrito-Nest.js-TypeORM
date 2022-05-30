@@ -24,11 +24,10 @@ import { RolOperacionModule } from './modules/rol-operacion/rol-operacion.module
 import { AuthModule } from './modules/auth/auth.module';
 import { ProveedorModule } from './modules/proveedor/proveedor.module';
 import { CompraModule } from './modules/compra/compra.module';
-import { ProveedorService } from './service/proveedor/proveedor.service';
-import { CompraService } from './service/compra/compra.service';
-import { ProveedorController } from './controller/proveedor/proveedor.controller';
-import { CompraController } from './controller/compra/compra.controller';
+
 //import { MomentDateModule } from '@angular/material-moment-adapter';
+import { BannerModule } from './modules/banner/banner.module';
+
 
 
 
@@ -60,6 +59,7 @@ import { CompraController } from './controller/compra/compra.controller';
             AuthModule,
             ProveedorModule,
             CompraModule,
+            BannerModule,
             //MomentDateModule
           ],
   controllers: [],

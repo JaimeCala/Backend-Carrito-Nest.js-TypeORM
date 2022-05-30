@@ -7,7 +7,7 @@ import { extname } from 'path';
 import { ImgCategoria } from 'src/modules/img-categoria/img-categoria.entity';
 import { filetipo } from './interface.imgcategoria';
 import { getany } from './interface.getcategoria';
-import { Categoria } from '../../modules/categoria/categoria.entity';
+
 
 
 @Controller('img-categoria')
